@@ -57,7 +57,7 @@ class ChemicalInput extends HTMLInputElement {
       super();
     }
     connectedCallback() {
-      this.addEventListener("click", function (e) {
+      this.addEventListener("click", function (_e) {
         let forInput = document.getElementById(this.dataset.for);
   
         if (forInput) {
@@ -80,7 +80,7 @@ class ChemicalInput extends HTMLInputElement {
       let open = this.dataset.open;
       this.style.display = open === "true" ? "" : "none";
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name, _oldValue, _newValue) {
       if (name === "data-open") {
         let open = this.dataset.open;
         this.style.display = open === "true" ? "" : "none";
@@ -103,7 +103,7 @@ class ChemicalInput extends HTMLInputElement {
       let open = this.dataset.open;
       this.style.display = open === "true" ? "" : "none";
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name, _oldValue, _newValue) {
       if (name === "data-open") {
         let open = this.dataset.open;
         this.style.display = open === "true" ? "" : "none";
@@ -167,7 +167,7 @@ class ChemicalInput extends HTMLInputElement {
           subtree: false,
         };
   
-        const observer = new MutationObserver((records, observer) => {
+        const observer = new MutationObserver((records, _observer) => {
           for (const record of records) {
             for (const addedNode of record.addedNodes) {
               if (addedNode.tagName === "OPTION") {

@@ -26,7 +26,7 @@ window.chemical = {
         `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`,
 };
 
-function rammerheadEncode(baseUrl, decode = false) {
+async function rammerheadEncode(baseUrl, decode = false) {
   const mod = (n, m) => ((n % m) + m) % m;
   const baseDictionary =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~-";
@@ -96,42 +96,39 @@ function rammerheadEncode(baseUrl, decode = false) {
     }
   }
 
-  function get(url, callback, shush = false) {
-    const request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.send();
+  function get(url) {
+    return new Promise((resolve, reject) => {
+      const request = new XMLHttpRequest();
+      request.open("GET", url, true);
+      request.send();
 
-    request.onerror = () => {
-      if (!shush) console.log("Cannot communicate with the server");
-    };
-    request.onload = () => {
-      if (request.status === 200) {
-        callback(request.responseText);
-      } else {
-        if (!shush)
-          console.log(
-            `unexpected server response to not match "200". Server says "${request.responseText}"`
-          );
-      }
-    };
+      request.onerror = () => {
+        reject(new Error("Cannot communicate with the server"));
+      };
+      request.onload = () => {
+        if (request.status === 200) {
+          resolve(request.responseText);
+        } else {
+          reject(new Error(`Unexpected server response: ${request.responseText}`));
+        }
+      };
+    });
   }
 
   const api = {
-    newsession(callback) {
-      get("/newsession", callback);
+    async newsession() {
+      return await get("/newsession");
     },
-    sessionexists(id, callback) {
-      get(`/sessionexists?id=${encodeURIComponent(id)}`, (res) => {
-        if (res === "exists") return callback(true);
-        if (res === "not found") return callback(false);
-        console.log(`unexpected response from server. received${res}`);
-      });
+    async sessionexists(id) {
+      const res = await get(`/sessionexists?id=${encodeURIComponent(id)}`);
+      if (res === "exists") return true;
+      if (res === "not found") return false;
+      throw new Error(`Unexpected response from server: ${res}`);
     },
-    shuffleDict(id, callback) {
+    async shuffleDict(id) {
       console.log("Shuffling", id);
-      get(`/api/shuffleDict?id=${encodeURIComponent(id)}`, (res) => {
-        callback(JSON.parse(res));
-      });
+      const res = await get(`/api/shuffleDict?id=${encodeURIComponent(id)}`);
+      return JSON.parse(res);
     },
   };
 
@@ -173,41 +170,30 @@ function rammerheadEncode(baseUrl, decode = false) {
     sessionIdsStore.set(data);
   }
 
-  function getSessionId() {
-    return new Promise((resolve) => {
-      var id = localStorage.getItem("session-string");
-      api.sessionexists(id, function (value) {
-        if (!value) {
-          console.log("Session validation failed");
-          api.newsession(function (id) {
-            addSession(id);
-            localStorage.setItem("session-string", id);
-            console.log(id);
-            console.log("^ new id");
-            resolve(id);
-          });
-        } else {
-          resolve(id);
-        }
-      });
-    });
+  async function getSessionId() {
+    var id = localStorage.getItem("session-string");
+    const exists = await api.sessionexists(id);
+    if (!exists) {
+      console.log("Session validation failed");
+      const newId = await api.newsession();
+      addSession(newId);
+      localStorage.setItem("session-string", newId);
+      console.log(newId);
+      console.log("^ new id");
+      return newId;
+    }
+    return id;
   }
 
-  var ProxyHref;
-
-  return getSessionId().then((id) => {
-    return new Promise((resolve) => {
-      api.shuffleDict(id, function (shuffleDict) {
-        var shuffler = new StrShuffler(shuffleDict);
-        if (decode) {
-          ProxyHref = shuffler.unshuffle(baseUrl.split(id + "/")[1]);
-        } else {
-          ProxyHref = "/" + id + "/" + shuffler.shuffle(baseUrl);
-        }
-        resolve(ProxyHref);
-      });
-    });
-  });
+  const id = await getSessionId();
+  const shuffleDict = await api.shuffleDict(id);
+  const shuffler = new StrShuffler(shuffleDict);
+  
+  if (decode) {
+    return shuffler.unshuffle(baseUrl.split(id + "/")[1]);
+  } else {
+    return "/" + id + "/" + shuffler.shuffle(baseUrl);
+  }
 }
 
 async function encodeService(url, service) {
@@ -341,10 +327,8 @@ function getTransport(transport) {
     default:
     case "libcurl":
       return "/libcurl/index.mjs";
-      break;
     case "epoxy":
       return "/epoxy/index.mjs";
-      break;
   }
 }
 
@@ -415,7 +399,7 @@ function setupFetch() {
   };
 
   window.chemical.createDataURL = async function (url) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, _reject) => {
       try {
         const response = await window.chemical.fetch(url);
         const blob = await response.blob();
