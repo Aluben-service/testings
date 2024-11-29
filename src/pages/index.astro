@@ -1,11 +1,28 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { ViewTransitions } from 'astro:transitions';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is an example project for Chemical.">
+    <title>Chemical Example</title>
+    <link rel="stylesheet" href="/style.css">
+    <script async defer src="/chemical.js"></script>
+    <script async defer src="/chemical.components.js"></script>
+    <ViewTransitions />
+</head>
+<body>
+    <h1>Chemical Example</h1>
+    <p>Create your own using <a href="https://github.com/chemicaljs/chemical">Chemical!</a></p>
+    <input autofocus spellcheck="false" autocomplete="off" id="search" data-frame="web" data-auto-https data-search-engine="https://www.google.com/search?q=%s" placeholder="Search or Enter a URL" is="chemical-input">
+    <section id="controls" is="chemical-controls">
+        <button onclick="chemicalAction('back', 'web')">Back</button>
+        <button onclick="chemicalAction('forward', 'web')">Forward</button>
+        <button onclick="chemicalAction('reload', 'web')">Reload</button>
+        <button onclick="chemicalAction('close', 'web')">Close</button>
+    </section>
+    <iframe id="web" data-controls="controls" is="chemical-iframe"></iframe>
+</body>
+</html>

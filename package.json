@@ -9,8 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.16",
     "@astrojs/check": "^0.9.4",
-    "typescript": "^5.7.2"
+    "@astrojs/netlify": "^5.5.4",
+    "astro": "^4.16.16",
+    "chemicaljs": "^2.5.1",
+    "typescript": "^5.7.2",
+    "wisp-server-node": "^1.1.7"
   }
 }
