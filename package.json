@@ -13,6 +13,7 @@
     "@astrojs/netlify": "^5.5.4",
     "astro": "^4.16.16",
     "chemicaljs": "^2.5.1",
+    "kleur": "^4.1.5",
     "typescript": "^5.7.2",
     "wisp-server-node": "^1.1.7"
   }

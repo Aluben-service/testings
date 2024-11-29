@@ -11,6 +11,13 @@ export default defineConfig({
   output: 'hybrid',
 
   adapter: netlify({
-    edgeMiddleware: true
+    edgeMiddleware: true,
+    // @ts-ignore
+    edgeFunctions: {
+        // This will automatically include all files in src/pages/api
+      experimental: {
+        autoInclude: true
+      }
+    }
   }),
 });
