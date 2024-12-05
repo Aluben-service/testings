@@ -74,11 +74,11 @@ async function rammerheadEncode(baseUrl, decode = false) {
         return str;
       }
 
-      str = str.slice(shuffledIndicator.length);
+      const unshuffledInput = str.slice(shuffledIndicator.length);
 
       let unshuffledStr = "";
-      for (let i = 0; i < str.length; i++) {
-        const char = str.charAt(i);
+      for (let i = 0; i < unshuffledInput.length; i++) {
+        const char = unshuffledInput.charAt(i);
         const idx = this.dictionary.indexOf(char);
         if (char === "%" && str.length - i >= 3) {
           unshuffledStr += char;
@@ -153,7 +153,7 @@ async function rammerheadEncode(baseUrl, decode = false) {
     getDefault() {
       const sessionId = localStorage.getItem(localStorageKeyDefault);
       if (sessionId) {
-        var data = sessionIdsStore.get();
+        const data = sessionIdsStore.get();
         data.filter((e) => e.id === sessionId);
         if (data.length) return data[0];
       }
@@ -165,13 +165,13 @@ async function rammerheadEncode(baseUrl, decode = false) {
   };
 
   function addSession(id) {
-    var data = sessionIdsStore.get();
+    const data = sessionIdsStore.get();
     data.unshift({ id: id, createdOn: new Date().toLocaleString() });
     sessionIdsStore.set(data);
   }
 
   async function getSessionId() {
-    var id = localStorage.getItem("session-string");
+    const id = localStorage.getItem("session-string");
     const exists = await api.sessionexists(id);
     if (!exists) {
       console.log("Session validation failed");
@@ -190,10 +190,9 @@ async function rammerheadEncode(baseUrl, decode = false) {
   const shuffler = new StrShuffler(shuffleDict);
   
   if (decode) {
-    return shuffler.unshuffle(baseUrl.split(id + "/")[1]);
-  } else {
-    return "/" + id + "/" + shuffler.shuffle(baseUrl);
+    return shuffler.unshuffle(baseUrl.split(`${id}/`)[1]);
   }
+    return `/${id}/${shuffler.shuffle(baseUrl)}`;
 }
 
 async function encodeService(url, service) {
@@ -220,12 +219,15 @@ async function encodeService(url, service) {
   }
 }
 
-window.chemical.encode = async function (url, config) {
+window.chemical.encode = async (url, config = {
+  service: defaultService,
+  autoHttps: false,
+}) => {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
-    config = {
+    config = Object.assign({}, {
       service: defaultService,
-      autoHttps: false,
-    };
+      autoHttps: false
+    });
   }
 
   if (config.service === undefined) {
@@ -242,23 +244,22 @@ window.chemical.encode = async function (url, config) {
 
   if (url.match(/^https?:\/\//)) {
     return await encodeService(url, config.service);
-  } else if (
+  }if (
     config.autoHttps === true &&
     url.includes(".") &&
     !url.includes(" ")
   ) {
-    return await encodeService("https://" + url, config.service);
-  } else if (config.searchEngine) {
+    return await encodeService(`https://${url}`, config.service);
+  }if (config.searchEngine) {
     return await encodeService(
       config.searchEngine.replace("%s", encodeURIComponent(url)),
       config.service
     );
-  } else {
-    return await encodeService(url, config.service);
   }
+    return await encodeService(url, config.service);
 };
 
-window.chemical.decode = async function (url, config) {
+window.chemical.decode = async (url, config) => {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
     config = {
       service: defaultService,
@@ -287,11 +288,11 @@ window.chemical.decode = async function (url, config) {
   }
 };
 
-window.chemical.setStore = function (key, value) {
+window.chemical.setStore = (key, value) => {
   const allowed = ["transport", "wisp", "service", "autoHttps", "searchEngine"];
 
   if (allowed.includes(key)) {
-    localStorage.setItem("@chemical/" + key, String(value));
+    localStorage.setItem(`@chemical/${key}`, String(value));
     if (key === "transport") {
       window.chemical.setTransport(value);
     }
@@ -306,11 +307,11 @@ window.chemical.setStore = function (key, value) {
   }
 };
 
-window.chemical.getStore = function (key) {
+window.chemical.getStore = (key) => {
   const value =
     key === "autoHttps"
-      ? localStorage.getItem("@chemical/" + key) === "true"
-      : localStorage.getItem("@chemical/" + key);
+      ? localStorage.getItem(`@chemical/${key}`) === "true"
+      : localStorage.getItem(`@chemical/${key}`);
 
   const defaults = {
     transport: window.chemical.transport,
@@ -332,7 +333,7 @@ function getTransport(transport) {
   }
 }
 
-window.chemical.setTransport = async function (newTransport) {
+window.chemical.setTransport = async (newTransport) => {
   newTransport = newTransport || currentScript.dataset.transport || "libcurl";
   await window.chemical.connection.setTransport(getTransport(newTransport), [
     { wisp: window.chemical.wisp },
@@ -340,14 +341,11 @@ window.chemical.setTransport = async function (newTransport) {
   window.chemical.transport = newTransport;
 };
 
-window.chemical.setWisp = async function (wisp) {
+window.chemical.setWisp = async (wisp) => {
   wisp =
     wisp ||
     currentScript.dataset.wisp ||
-    (location.protocol === "https:" ? "wss" : "ws") +
-      "://" +
-      location.host +
-      "/wisp/";
+    `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`;
   await window.chemical.connection.setTransport(
     getTransport(window.chemical.transport),
     [{ wisp: wisp }]
@@ -381,14 +379,14 @@ function setupFetch() {
   const client = new window.BareMux.BareClient();
   window.chemical.fetch = client.fetch.bind(client);
 
-  window.chemical.getSuggestions = async function (query) {
+  window.chemical.getSuggestions = async (query) => {
     if (!query) {
       return [];
     }
 
     try {
       const DDGSuggestions = await window.chemical.fetch(
-        "https://duckduckgo.com/ac/?q=" + query + "&type=list"
+        `https://duckduckgo.com/ac/?q=${query}&type=list`
       );
       const suggestions = await DDGSuggestions.json();
       return suggestions[1].slice(0, 9);
@@ -398,23 +396,24 @@ function setupFetch() {
     }
   };
 
-  window.chemical.createDataURL = async function (url) {
-    return new Promise(async (resolve, _reject) => {
+  window.chemical.createDataURL = (url) => new Promise((resolve, _reject) => {
       try {
-        const response = await window.chemical.fetch(url);
-        const blob = await response.blob();
-        const reader = new FileReader();
+        window.chemical.fetch(url)
+          .then(response => response.blob())
+          .then(blob => {
+            const reader = new FileReader();
 
-        reader.onloadend = function () {
-          resolve(reader.result);
-        };
+            reader.onloadend = () => {
+              resolve(reader.result);
+            };
 
-        reader.readAsDataURL(blob);
+            reader.readAsDataURL(blob);
+          })
+          .catch(() => resolve(undefined));
       } catch {
         resolve(undefined);
       }
     });
-  };
 }
 
 await loadScript("/baremux/index.js");

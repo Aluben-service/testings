@@ -1,37 +1,32 @@
 class ChemicalInput extends HTMLInputElement {
-    constructor() {
-      super();
-    }
     connectedCallback() {
       this.addEventListener("keydown", async function (e) {
         if (e.key === "Enter" && window.chemical.loaded && e.target.value) {
-          let service =
+          const service =
             this.dataset.serviceStore !== undefined
               ? localStorage.getItem("@chemical/service") ||
                 this.dataset.service ||
                 "uv"
               : this.dataset.service || "uv";
-          let autoHttps =
+          const autoHttps =
             this.dataset.autoHttpsStore !== undefined
-              ? localStorage.getItem("@chemical/autoHttps") === "true"
-              : this.dataset.autoHttps !== undefined
-              ? true
-              : false;
-          let searchEngine =
+              ? localStorage.getItem("@chemical/autoHttps") === "true" 
+              : !!this.dataset.autoHttps;
+          const searchEngine =
             this.dataset.searchEngineStore !== undefined
               ? localStorage.getItem("@chemical/searchEngine")
               : this.dataset.searchEngine;
-          let action = this.dataset.action;
-          let target = this.dataset.target;
-          let frame = this.dataset.frame;
-          let encodedURL = await chemical.encode(e.target.value, {
+          const action = this.dataset.action;
+          const target = this.dataset.target;
+          const frame = this.dataset.frame;
+          const encodedURL = await chemical.encode(e.target.value, {
             service,
             autoHttps,
             searchEngine,
           });
   
           if (frame) {
-            let forFrame = document.getElementById(frame);
+            const forFrame = document.getElementById(frame);
             forFrame.src = encodedURL;
             forFrame.setAttribute("data-open", "true");
           }
@@ -53,12 +48,9 @@ class ChemicalInput extends HTMLInputElement {
   }
   
   class ChemicalButton extends HTMLButtonElement {
-    constructor() {
-      super();
-    }
     connectedCallback() {
       this.addEventListener("click", function (_e) {
-        let forInput = document.getElementById(this.dataset.for);
+        const forInput = document.getElementById(this.dataset.for);
   
         if (forInput) {
           forInput.dispatchEvent(
@@ -73,19 +65,16 @@ class ChemicalInput extends HTMLInputElement {
   
   class ChemicalIFrame extends HTMLIFrameElement {
     static observedAttributes = ["data-open"];
-    constructor() {
-      super();
-    }
     connectedCallback() {
-      let open = this.dataset.open;
+      const open = this.dataset.open;
       this.style.display = open === "true" ? "" : "none";
     }
     attributeChangedCallback(name, _oldValue, _newValue) {
       if (name === "data-open") {
-        let open = this.dataset.open;
+        const open = this.dataset.open;
         this.style.display = open === "true" ? "" : "none";
   
-        let controls = document.getElementById(this.dataset.controls);
+        const controls = document.getElementById(this.dataset.controls);
   
         if (controls) {
           controls.dataset.open = open;
@@ -96,30 +85,24 @@ class ChemicalInput extends HTMLInputElement {
   
   class ChemicalControls extends HTMLElement {
     static observedAttributes = ["data-open"];
-    constructor() {
-      super();
-    }
     connectedCallback() {
-      let open = this.dataset.open;
+      const open = this.dataset.open;
       this.style.display = open === "true" ? "" : "none";
     }
     attributeChangedCallback(name, _oldValue, _newValue) {
       if (name === "data-open") {
-        let open = this.dataset.open;
+        const open = this.dataset.open;
         this.style.display = open === "true" ? "" : "none";
       }
     }
   }
   
   class ChemicalLink extends HTMLAnchorElement {
-    constructor() {
-      super();
-    }
     async connectedCallback() {
-      let href = this.dataset.href;
-      let service = this.dataset.service || "uv";
-      let autoHttps = this.dataset.autoHttps !== undefined ? true : false;
-      let searchEngine = this.dataset.searchEngine;
+      const href = this.dataset.href;
+      const service = this.dataset.service || "uv";
+      const autoHttps = this.dataset.autoHttps  !== undefined;
+      const searchEngine = this.dataset.searchEngine;
       this.dataset.chemicalLoading = "true";
   
       if (window.chemical.loaded) {
@@ -149,9 +132,6 @@ class ChemicalInput extends HTMLInputElement {
   }
   
   class ChemicalSelect extends HTMLSelectElement {
-    constructor() {
-      super();
-    }
     connectedCallback() {
       const store = this.dataset.defaultStore;
   
@@ -192,8 +172,8 @@ class ChemicalInput extends HTMLInputElement {
   customElements.define("chemical-link", ChemicalLink, { extends: "a" });
   customElements.define("chemical-select", ChemicalSelect, { extends: "select" });
   
-  window.chemical.componentAction = function (action, frameID) {
-    let frame = document.getElementById(frameID);
+  window.chemical.componentAction = (action, frameID) => {
+    const frame = document.getElementById(frameID);
   
     if (frame) {
       switch (action) {

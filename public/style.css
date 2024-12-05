@@ -49,6 +49,7 @@ body {
     font-family: inherit;
     font-size: inherit;
     cursor: pointer;
+    -webkit-user-select: none;
     user-select: none;
     border-radius: 6px;
     padding: 0.25rem 0.5rem;
@@ -64,6 +65,7 @@ body {
     height: calc(100% - 2.5rem);
     border: none;
     background: #212121;
+    -webkit-user-select: none;
     user-select: none;
 }
 
