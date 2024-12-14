@@ -8,8 +8,8 @@ import clerk from "@clerk/astro";
 // https://astro.build/config
 export default defineConfig({
   //  vite: {
-  //    plugins: [ChemicalVitePlugin({})]
-  //  }
+ //     plugins: [ChemicalVitePlugin({})]
+  //  },
   integrations: [clerk()],
   output: 'hybrid',
 

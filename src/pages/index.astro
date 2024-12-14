@@ -1,7 +1,10 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
----
+import { ViewTransitions, fade  } from 'astro:transitions';
+import {
+    navigate,
 
+  } from 'astro:transitions/client';
+---
 <html lang="en" transition:name="root" transition:animate="none">
 <head>
     <meta charset="UTF-8">
@@ -9,16 +12,16 @@ import { ViewTransitions } from 'astro:transitions';
     <meta name="description" content="This is an example project for Chemical.">
     <title>Chemical Example</title>
     <link rel="stylesheet" href="/style.css">
-    <script is:inline async defer src="/chemical.js"></script>
+    <script data-wisp="ws://localhost:4321/wisp/" is:inline async defer src="/chemical.js"></script>
     <script is:inline async defer src="/chemical.components.js"></script>
     <ViewTransitions />
 </head>
 <body>
-    <a href="/s">masqr</a>
+    <a on:click={() => {navigate("/s")}} href="/s">masqr</a>
     <aside transition:name="hero">
 
     <h1>Chemical Example</h1>
-    <p >Create your own using <a href="https://github.com/chemicaljs/chemical">Chemical!</a></p>
+    <p transition:animate={fade({ duration: '0.4s' })}>Create your own using <a href="https://github.com/chemicaljs/chemical">Chemical!</a></p>
     <input autofocus spellcheck="false" autocomplete="off" id="search" data-frame="web" data-auto-https data-search-engine="https://www.google.com/search?q=%s" placeholder="Search or Enter a URL" is="chemical-input">
     <section id="controls" is="chemical-controls">
         <button onclick="chemicalAction('back', 'web')">Back</button>
