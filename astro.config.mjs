@@ -16,8 +16,10 @@ export default defineConfig({
       "astro:server:setup": (opts) => {
         const { httpServer } = opts.server;
         // start a wisp server while letting HMR run
+        // @ts-ignore
         const astroHMR = httpServer._events.upgrade;
-        httpServer._events.upgrade = (req, socket, head) => {
+        // @ts-ignore
+        httpServer._events.upgrade = (/** @type {import("http").IncomingMessage} */ req, /** @type {import("net").Socket} */ socket, /** @type {Buffer} */ head) => {
           if (req.url === "/") astroHMR(req, socket, head);
           else handleUpgrade(req, socket, head);
         };
