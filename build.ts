@@ -4,10 +4,8 @@ const build = new ChemicalBuild({
     path: "dist",
     default: "uv",
     uv: true,
- //   experimental: {
-  //      scramjet: true,
-    //    meteor: true,
-  //  },
+    scramjet: true,
+    rh: true,
    // rammerhead: false,
 });
 build.write(true);

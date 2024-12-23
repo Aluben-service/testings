@@ -1,5 +1,6 @@
 ---
 import Particles from "astro-particles"
+import type { Engine } from "tsparticles-engine";
 import type { ISourceOptions } from "tsparticles-engine";
 const options: ISourceOptions = {
     background: {
@@ -17,9 +18,17 @@ const options: ISourceOptions = {
         }
     }
 };
+
+// Extend the global window interface
+declare global {
+  interface Window {
+    particlesInit: (engine: Engine) => Promise<void>;
+  }
+}
+
 ---
 <script>
-    import { type Container, type Engine, tsParticles } from "tsparticles-engine";
+    import type { Engine } from "tsparticles-engine";
     import { loadFull } from "tsparticles";
 
     // the function name is the parameter passed to the init attribute
@@ -27,13 +36,6 @@ const options: ISourceOptions = {
     // add the function to window is mandatory, it will be searched there
     window.particlesInit = async function (engine: Engine) {
         await loadFull(engine);
-    }
-    
-    // the function name is the parameter passed to the loaded attribute
-    // optional
-    // add the function to window is mandatory, it will be searched there
-    window.particlesLoaded = function (container: Container) {
-        console.log("particlesLoaded callback");
     }
 </script>
 

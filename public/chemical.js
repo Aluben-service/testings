@@ -1,8 +1,8 @@
 (async () => {
-const uvRandomPath = "PGtWY2ZzjT";
+const uvRandomPath = "L3p8EMTpmi";
 const demoMode = false;
-const rammerheadEnabled = true;
-const scramjetEnabled = true;
+const rammerheadEnabled = false;
+const scramjetEnabled = false;
 const uvEnabled = true;
 const defaultService = "uv";
 
@@ -21,18 +21,24 @@ window.chemical = {
     currentScript.dataset.wispStore !== undefined
       ? localStorage.getItem("@chemical/wisp") ||
         currentScript.dataset.wisp ||
-        `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`
+        (location.protocol === "https:" ? "wss" : "ws") +
+          "://" +
+          location.host +
+          "/wisp/"
       : currentScript.dataset.wisp ||
-        `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`,
+        (location.protocol === "https:" ? "wss" : "ws") +
+          "://" +
+          location.host +
+          "/wisp/",
 };
 
-async function rammerheadEncode(baseUrl, decode = false) {
+function rammerheadEncode(baseUrl, decode = false) {
   const mod = (n, m) => ((n % m) + m) % m;
   const baseDictionary =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~-";
   const shuffledIndicator = "_rhs";
 
-  const generateDictionary = () => {
+  const generateDictionary = function () {
     let str = "";
     const split = baseDictionary.split("");
     while (split.length > 0) {
@@ -74,11 +80,11 @@ async function rammerheadEncode(baseUrl, decode = false) {
         return str;
       }
 
-      const unshuffledInput = str.slice(shuffledIndicator.length);
+      str = str.slice(shuffledIndicator.length);
 
       let unshuffledStr = "";
-      for (let i = 0; i < unshuffledInput.length; i++) {
-        const char = unshuffledInput.charAt(i);
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charAt(i);
         const idx = this.dictionary.indexOf(char);
         if (char === "%" && str.length - i >= 3) {
           unshuffledStr += char;
@@ -96,50 +102,55 @@ async function rammerheadEncode(baseUrl, decode = false) {
     }
   }
 
-  function get(url) {
-    return new Promise((resolve, reject) => {
-      const request = new XMLHttpRequest();
-      request.open("GET", url, true);
-      request.send();
+  function get(url, callback, shush = false) {
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.send();
 
-      request.onerror = () => {
-        reject(new Error("Cannot communicate with the server"));
-      };
-      request.onload = () => {
-        if (request.status === 200) {
-          resolve(request.responseText);
-        } else {
-          reject(new Error(`Unexpected server response: ${request.responseText}`));
-        }
-      };
-    });
+    request.onerror = function () {
+      if (!shush) console.log("Cannot communicate with the server");
+    };
+    request.onload = function () {
+      if (request.status === 200) {
+        callback(request.responseText);
+      } else {
+        if (!shush)
+          console.log(
+            'unexpected server response to not match "200". Server says "' +
+              request.responseText +
+              '"'
+          );
+      }
+    };
   }
 
-  const api = {
-    async newsession() {
-      return await get("/newsession");
+  var api = {
+    newsession(callback) {
+      get("/newsession", callback);
     },
-    async sessionexists(id) {
-      const res = await get(`/sessionexists?id=${encodeURIComponent(id)}`);
-      if (res === "exists") return true;
-      if (res === "not found") return false;
-      throw new Error(`Unexpected response from server: ${res}`);
+    sessionexists(id, callback) {
+      get("/sessionexists?id=" + encodeURIComponent(id), function (res) {
+        if (res === "exists") return callback(true);
+        if (res === "not found") return callback(false);
+        console.log("unexpected response from server. received" + res);
+      });
     },
-    async shuffleDict(id) {
+    shuffleDict(id, callback) {
       console.log("Shuffling", id);
-      const res = await get(`/api/shuffleDict?id=${encodeURIComponent(id)}`);
-      return JSON.parse(res);
+      get("/api/shuffleDict?id=" + encodeURIComponent(id), function (res) {
+        callback(JSON.parse(res));
+      });
     },
   };
 
-  const localStorageKey = "rammerhead_sessionids";
-  const localStorageKeyDefault = "rammerhead_default_sessionid";
-  const sessionIdsStore = {
+  var localStorageKey = "rammerhead_sessionids";
+  var localStorageKeyDefault = "rammerhead_default_sessionid";
+  var sessionIdsStore = {
     get() {
-      const rawData = localStorage.getItem(localStorageKey);
+      var rawData = localStorage.getItem(localStorageKey);
       if (!rawData) return [];
       try {
-        const data = JSON.parse(rawData);
+        var data = JSON.parse(rawData);
         if (!Array.isArray(data)) throw "getout";
         return data;
       } catch (e) {
@@ -151,10 +162,12 @@ async function rammerheadEncode(baseUrl, decode = false) {
       localStorage.setItem(localStorageKey, JSON.stringify(data));
     },
     getDefault() {
-      const sessionId = localStorage.getItem(localStorageKeyDefault);
+      var sessionId = localStorage.getItem(localStorageKeyDefault);
       if (sessionId) {
-        const data = sessionIdsStore.get();
-        data.filter((e) => e.id === sessionId);
+        var data = sessionIdsStore.get();
+        data.filter(function (e) {
+          return e.id === sessionId;
+        });
         if (data.length) return data[0];
       }
       return null;
@@ -165,34 +178,46 @@ async function rammerheadEncode(baseUrl, decode = false) {
   };
 
   function addSession(id) {
-    const data = sessionIdsStore.get();
+    var data = sessionIdsStore.get();
     data.unshift({ id: id, createdOn: new Date().toLocaleString() });
     sessionIdsStore.set(data);
   }
 
-  async function getSessionId() {
-    const id = localStorage.getItem("session-string");
-    const exists = await api.sessionexists(id);
-    if (!exists) {
-      console.log("Session validation failed");
-      const newId = await api.newsession();
-      addSession(newId);
-      localStorage.setItem("session-string", newId);
-      console.log(newId);
-      console.log("^ new id");
-      return newId;
-    }
-    return id;
+  function getSessionId() {
+    return new Promise((resolve) => {
+      var id = localStorage.getItem("session-string");
+      api.sessionexists(id, function (value) {
+        if (!value) {
+          console.log("Session validation failed");
+          api.newsession(function (id) {
+            addSession(id);
+            localStorage.setItem("session-string", id);
+            console.log(id);
+            console.log("^ new id");
+            resolve(id);
+          });
+        } else {
+          resolve(id);
+        }
+      });
+    });
   }
 
-  const id = await getSessionId();
-  const shuffleDict = await api.shuffleDict(id);
-  const shuffler = new StrShuffler(shuffleDict);
-  
-  if (decode) {
-    return shuffler.unshuffle(baseUrl.split(`${id}/`)[1]);
-  }
-    return `/${id}/${shuffler.shuffle(baseUrl)}`;
+  var ProxyHref;
+
+  return getSessionId().then((id) => {
+    return new Promise((resolve) => {
+      api.shuffleDict(id, function (shuffleDict) {
+        var shuffler = new StrShuffler(shuffleDict);
+        if (decode) {
+          ProxyHref = shuffler.unshuffle(baseUrl.split(id + "/")[1]);
+        } else {
+          ProxyHref = "/" + id + "/" + shuffler.shuffle(baseUrl);
+        }
+        resolve(ProxyHref);
+      });
+    });
+  });
 }
 
 async function encodeService(url, service) {
@@ -219,15 +244,12 @@ async function encodeService(url, service) {
   }
 }
 
-window.chemical.encode = async (url, config = {
-  service: defaultService,
-  autoHttps: false,
-}) => {
+window.chemical.encode = async function (url, config) {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
-    config = Object.assign({}, {
+    config = {
       service: defaultService,
-      autoHttps: false
-    });
+      autoHttps: false,
+    };
   }
 
   if (config.service === undefined) {
@@ -244,22 +266,23 @@ window.chemical.encode = async (url, config = {
 
   if (url.match(/^https?:\/\//)) {
     return await encodeService(url, config.service);
-  }if (
+  } else if (
     config.autoHttps === true &&
     url.includes(".") &&
     !url.includes(" ")
   ) {
-    return await encodeService(`https://${url}`, config.service);
-  }if (config.searchEngine) {
+    return await encodeService("https://" + url, config.service);
+  } else if (config.searchEngine) {
     return await encodeService(
       config.searchEngine.replace("%s", encodeURIComponent(url)),
       config.service
     );
-  }
+  } else {
     return await encodeService(url, config.service);
+  }
 };
 
-window.chemical.decode = async (url, config) => {
+window.chemical.decode = async function (url, config) {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
     config = {
       service: defaultService,
@@ -288,16 +311,42 @@ window.chemical.decode = async (url, config) => {
   }
 };
 
-window.chemical.setStore = (key, value) => {
-  const allowed = ["transport", "wisp", "service", "autoHttps", "searchEngine"];
+window.chemical.setStore = function (key, value) {
+  const allowed = [
+    "transport",
+    "wisp",
+    "service",
+    "autoHttps",
+    "searchEngine",
+    "title",
+    "icon",
+  ];
 
   if (allowed.includes(key)) {
-    localStorage.setItem(`@chemical/${key}`, String(value));
+    localStorage.setItem("@chemical/" + key, String(value));
     if (key === "transport") {
       window.chemical.setTransport(value);
     }
     if (key === "wisp") {
       window.chemical.setWisp(value);
+    }
+    if (key === "title") {
+      const titleElement = document.querySelector("title[is='chemical-title']");
+
+      if (titleElement) {
+        titleElement.innerText =
+          value || titleElement.getAttribute("data-title");
+      }
+    }
+    if (key === "icon") {
+      const iconElement = document.querySelector("link[is='chemical-icon']");
+
+      if (iconElement) {
+        iconElement.setAttribute(
+          "href",
+          value || iconElement.getAttribute("data-icon")
+        );
+      }
     }
     window.dispatchEvent(
       new CustomEvent("chemicalStoreChange", {
@@ -307,17 +356,21 @@ window.chemical.setStore = (key, value) => {
   }
 };
 
-window.chemical.getStore = (key) => {
+window.chemical.getStore = function (key) {
   const value =
     key === "autoHttps"
-      ? localStorage.getItem(`@chemical/${key}`) === "true"
-      : localStorage.getItem(`@chemical/${key}`);
+      ? localStorage.getItem("@chemical/" + key) === "true"
+      : localStorage.getItem("@chemical/" + key);
 
   const defaults = {
     transport: window.chemical.transport,
     wisp: window.chemical.wisp,
     service: "uv",
     autoHttps: false,
+    title: document.querySelector("title[is='chemical-title']")?.innerText,
+    icon: document
+      .querySelector("link[is='chemical-icon']")
+      ?.getAttribute("href"),
   };
 
   return value || defaults[key];
@@ -328,12 +381,14 @@ function getTransport(transport) {
     default:
     case "libcurl":
       return "/libcurl/index.mjs";
+      break;
     case "epoxy":
       return "/epoxy/index.mjs";
+      break;
   }
 }
 
-window.chemical.setTransport = async (newTransport) => {
+window.chemical.setTransport = async function (newTransport) {
   newTransport = newTransport || currentScript.dataset.transport || "libcurl";
   await window.chemical.connection.setTransport(getTransport(newTransport), [
     { wisp: window.chemical.wisp },
@@ -341,11 +396,14 @@ window.chemical.setTransport = async (newTransport) => {
   window.chemical.transport = newTransport;
 };
 
-window.chemical.setWisp = async (wisp) => {
+window.chemical.setWisp = async function (wisp) {
   wisp =
     wisp ||
     currentScript.dataset.wisp ||
-    `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`;
+    (location.protocol === "https:" ? "wss" : "ws") +
+      "://" +
+      location.host +
+      "/wisp/";
   await window.chemical.connection.setTransport(
     getTransport(window.chemical.transport),
     [{ wisp: wisp }]
@@ -379,14 +437,14 @@ function setupFetch() {
   const client = new window.BareMux.BareClient();
   window.chemical.fetch = client.fetch.bind(client);
 
-  window.chemical.getSuggestions = async (query) => {
+  window.chemical.getSuggestions = async function (query) {
     if (!query) {
       return [];
     }
 
     try {
       const DDGSuggestions = await window.chemical.fetch(
-        `https://duckduckgo.com/ac/?q=${query}&type=list`
+        "https://duckduckgo.com/ac/?q=" + query + "&type=list"
       );
       const suggestions = await DDGSuggestions.json();
       return suggestions[1].slice(0, 9);
@@ -396,24 +454,23 @@ function setupFetch() {
     }
   };
 
-  window.chemical.createDataURL = (url) => new Promise((resolve, _reject) => {
+  window.chemical.createDataURL = async function (url) {
+    return new Promise(async (resolve, reject) => {
       try {
-        window.chemical.fetch(url)
-          .then(response => response.blob())
-          .then(blob => {
-            const reader = new FileReader();
+        const response = await window.chemical.fetch(url);
+        const blob = await response.blob();
+        const reader = new FileReader();
 
-            reader.onloadend = () => {
-              resolve(reader.result);
-            };
+        reader.onloadend = function () {
+          resolve(reader.result);
+        };
 
-            reader.readAsDataURL(blob);
-          })
-          .catch(() => resolve(undefined));
+        reader.readAsDataURL(blob);
       } catch {
         resolve(undefined);
       }
     });
+  };
 }
 
 await loadScript("/baremux/index.js");

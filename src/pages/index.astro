@@ -1,28 +1,23 @@
 ---
-import { ViewTransitions, fade  } from 'astro:transitions';
-import {
-    navigate,
-
-  } from 'astro:transitions/client';
+import Base from '../layouts/Base.astro';
+const props = {
+  title: "Chemical Example",
+  description: "This is an example project for Chemical."
+};
 ---
-<html lang="en" transition:name="root" transition:animate="none">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="This is an example project for Chemical.">
-    <title>Chemical Example</title>
-    <link rel="stylesheet" href="/style.css">
-    <script data-wisp="ws://localhost:4321/wisp/" is:inline async defer src="/chemical.js"></script>
-    <script is:inline async defer src="/chemical.components.js"></script>
-    <ViewTransitions />
-</head>
-<body>
-    <a on:click={() => {navigate("/s")}} href="/s">masqr</a>
+
+<Base {...props}>
     <aside transition:name="hero">
 
     <h1>Chemical Example</h1>
-    <p transition:animate={fade({ duration: '0.4s' })}>Create your own using <a href="https://github.com/chemicaljs/chemical">Chemical!</a></p>
+    <p>Create your own using <a href="https://github.com/chemicaljs/chemical">Chemical!</a></p>
     <input autofocus spellcheck="false" autocomplete="off" id="search" data-frame="web" data-auto-https data-search-engine="https://www.google.com/search?q=%s" placeholder="Search or Enter a URL" is="chemical-input">
+    <select is="chemical-select" data-default-store="service">
+        <option value="uv">Ultraviolet</option>
+        <option value="rammerhead">Rammerhead</option>
+        <option value="scramjet">Scramjet</option>
+        <option value="meteor">Meteor</option>
+    </select>
     <section id="controls" is="chemical-controls">
         <button onclick="chemicalAction('back', 'web')">Back</button>
         <button onclick="chemicalAction('forward', 'web')">Forward</button>
@@ -30,5 +25,5 @@ import {
         <button onclick="chemicalAction('close', 'web')">Close</button>
     </section>
     <iframe id="web" data-controls="controls" is="chemical-iframe"></iframe>
-</body>
-</html>
+    </aside>
+</Base>

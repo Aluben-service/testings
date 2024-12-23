@@ -1,4 +1,4 @@
-const uvRandomPath = "PGtWY2ZzjT";
+const uvRandomPath = "L3p8EMTpmi";
 const rammerheadEnabled = true;
 const scramjetEnabled = true;
 const uvEnabled = true;

@@ -1,26 +1,31 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify';
-import clerk from "@clerk/astro";
+import node from "@astrojs/node";
 
-//import { ChemicalVitePlugin } from 'chemicaljs';
+import compress from "astro-compress";
+
+//stolen from holy unbcloker
+const { handleUpgrade } = await import("./runtime.js");
 
 // https://astro.build/config
 export default defineConfig({
-  //  vite: {
- //     plugins: [ChemicalVitePlugin({})]
-  //  },
-  integrations: [clerk()],
-  output: 'hybrid',
-
-  adapter: netlify({
-    edgeMiddleware: true,
-    // @ts-ignore
-    edgeFunctions: {
-        // This will automatically include all files in src/pages/api
-      experimental: {
-        autoInclude: true
-      }
-    }
+  integrations: [
+    {
+    name: "stolen from holy unblocker",
+    hooks: {
+      "astro:server:setup": (opts) => {
+        const { httpServer } = opts.server;
+        // start a wisp server while letting HMR run
+        const astroHMR = httpServer._events.upgrade;
+        httpServer._events.upgrade = (req, socket, head) => {
+          if (req.url === "/") astroHMR(req, socket, head);
+          else handleUpgrade(req, socket, head);
+        };
+      },
+    },
+  }, compress()],
+  output: "server",
+  adapter: node({
+    mode: "middleware",
   }),
 });
