@@ -1,0 +1,76 @@
+@use "variables" as *;
+
+.title {
+  font-size: 2.5rem;
+  color: $primary-color;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color;
+}
+
+.pluginGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.pluginCard {
+  background: rgba(0, 0, 0, $background-opacity);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 20px $primary-color;
+  }
+}
+
+.pluginName {
+  font-size: 1.5rem;
+  color: $primary-color;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px $primary-color;
+}
+
+.pluginDescription {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.pluginButton {
+  background-color: $primary-color;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: normal; /* Changed from bold to normal */
+  padding: 0.75rem 1.5rem;
+  text-shadow: 0 0 5px $primary-color;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 0 5px $primary-color, 0 0 10px $primary-color,
+    0 0 15px $primary-color; /* Reduced glow */
+  width: 100%; // Full width within the card
+
+  &:hover {
+    background-color: $button-hover-color;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px $button-hover-color, 0 0 20px $button-hover-color,
+      0 0 30px $button-hover-color; /* Reduced glow */
+  }
+
+  &:active {
+    background-color: $button-active-color;
+  }
+}

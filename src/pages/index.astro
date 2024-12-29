@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro";
+import styles from "@styles/home.module.scss";
+import baseStyles from "@styles/base.module.scss";
+
+const props = {
+  title: "Aluben",
+  description: "Testing for Aluben.",
+  favicon: "https://google.com/favicon.ico",
+};
+
+const quotes = import.meta.glob("../assets/data/quotes.json", { eager: true });
+const quotesData = (Object.values(quotes)[0] as { default: string[] }).default;
+const randomQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
+---
+
+<Base {...props}>
+  <main transition:name="slide" class={baseStyles.main}>
+    <h1>Aluben</h1>
+    <p class="quote">
+      <Fragment set:html={randomQuote} />
+    </p>
+    <a href="/404" class={styles.button}>Plugins</a>
+    <form id="proxyForm" class={styles.proxyForm}>
+      <input
+        spellcheck="false"
+        autocomplete="off"
+        id="search"
+        type="text"
+        placeholder="Search the web"
+      />
+    </form>
+    <div id="suggestions" class={styles.suggestions}></div>
+    <section id="controls" class={styles.controls}>
+      <button class={styles.button} onclick="action('back', 'web')">Back</button
+      >
+      <button onclick="action('forward', 'web')">Forward</button>
+      <button onclick="action('reload', 'web')">Reload</button>
+      <button onclick="action('close', 'web')">Close</button>
+    </section>
+    <iframe class={styles.webFrame} id="web"></iframe>
+  </main>
+  <script is:inline src="/baremux/index.js"></script>
+  <script is:inline src="/uv/uv.bundle.js"></script>
+  <script is:inline src="/uv/uv.config.js"></script>
+  <script is:inline src="/baremod/index.js"></script>
+  <script is:inline src="/index.js"></script>
+  <script is:inline src="/search.js"></script>
+  <script is:inline src="/register-sw.js"></script>
+</Base>

@@ -1,0 +1,12 @@
+
+#suggestions .suggestion {
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+#suggestions .suggestion:hover {
+    background-color: #333;
+}

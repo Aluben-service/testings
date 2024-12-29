@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import baseStyles from "../styles/base.module.scss";
+import kleur from "kleur";
+
+console.log(kleur.red("meow"));
+
+const props = {
+  title: "Aluben",
+  description: "Testing for Aluben.",
+  favicon: "https://google.com/favicon.ico",
+};
+---
+
+<Base {...props}>
+  <main transition:name="slide" class={baseStyles.main}>
+    <h1>404 - Page Not Found</h1>
+    <p>
+      Sorry, the page you are looking for does not exist. If you are using the
+      proxy, click register service worker.
+    </p>
+    <button class={baseStyles.button} onclick="errRegisterSW()"
+      >Register Service Worker</button
+    >
+    <br />
+    <button class={baseStyles.button} onclick="history.back()">Go back</button>
+  </main>
+
+  <script is:inline src="/baremux/index.js"></script>
+  <script is:inline src="/register-sw.js"></script>
+</Base>

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "AdBlocker",
+    "entryNamespace": "adblockExt",
+    "entryFunction": "filterRequest",
+    "events": ["fetch"],
+    "script": "/plugins/alublocker.js",
+    "type": "serviceWorker",
+    "description": "Blocks 97% of ads."
+  }
+]
