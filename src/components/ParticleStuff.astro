@@ -1,0 +1,91 @@
+---
+import Particles from "astro-particles";
+import type { ISourceOptions } from "tsparticles-engine";
+
+export interface ParticleProps {
+  particleOptions?: {
+    background: string;
+    particleColor: string;
+    opacity: number;
+    particleSize: number;
+    particlesNumber: number;
+    shadowColor: string;
+    lightRadius: number;
+    zIndex: number;
+  };
+}
+// Default settings for Nord theme
+// Nord Theme Variables for Particles
+const nordColors = {
+  background: "#2e3440", // Dark background (Nord theme)
+  particleColor: "#88c0d0", // Nordic Blue for particles
+  lightGradientStart: "rgba(255, 255, 255, 1)", // Light start of gradient (Nord accent)
+  lightGradientStop: "rgba(255, 255, 255, 0)", // Light stop of gradient (Nord accent)
+  shadowColor: "rgba(228, 38, 235, 0.5)", // Magenta shadow color
+};
+
+const nordSettings = {
+  particlesNumber: 50,
+  particleSize: 5,
+  opacity: 0.8,
+  zIndex: -1,
+  lightRadius: 50,
+};
+
+// Particles configuration using Nord theme variables
+const defaultOptions: ISourceOptions = {
+  background: {
+    color: nordColors.background, // Dark background from Nord theme
+  },
+  fullScreen: {
+    zIndex: nordSettings.zIndex,
+  },
+  particles: {
+    number: {
+      value: nordSettings.particlesNumber, // Number of particles
+    },
+    move: {
+      enable: true,
+    },
+    opacity: {
+      value: nordSettings.opacity, // Opacity of the particles
+    },
+    size: {
+      value: nordSettings.particleSize, // Size of the particles
+    },
+    light: {
+      area: {
+        gradient: {
+          start: nordColors.lightGradientStart, // Gradient start color
+          stop: nordColors.lightGradientStop, // Gradient stop color
+        },
+        radius: nordSettings.lightRadius, // Light radius
+      },
+    },
+    shadow: {
+      enable: true,
+      color: nordColors.shadowColor, // Magenta shadow color
+      blur: 10,
+    },
+  },
+};
+
+const options = Astro.props.options || defaultOptions;
+---
+
+<script>
+  import type { Engine } from "tsparticles-engine";
+  import { loadSlim } from "tsparticles-slim";
+
+  declare global {
+    interface Window {
+      particlesInit: (engine: Engine) => Promise<void>;
+    }
+  }
+
+  window.particlesInit = async function (engine: Engine) {
+    await loadSlim(engine);
+  };
+</script>
+
+<Particles id="tsparticles" options={options} init="particlesInit" />

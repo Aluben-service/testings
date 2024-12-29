@@ -10,5 +10,10 @@
     "id": "adblocker",
     "version": "1",
     "author": "wearr"
+  },
+  {
+    "name": "Dark Mode",
+    "style": "dark",
+    "description": "Dark mode for all websites."
   }
 ]

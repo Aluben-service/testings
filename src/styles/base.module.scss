@@ -1,77 +1,78 @@
-@use "variables" as *;
+@use "nord" as *;
 
 @font-face {
-    font-family: "Cascadia Code";
-    src: url("/CascadiaCode.woff2") format("woff2");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Cascadia Code";
+  src: url("/CascadiaCode.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
 body,
 html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Cascadia Code",
-        Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-primary;
 }
 
 .main {
-    position: relative;
-    z-index: 1;
-    margin: auto;
-    padding: 2rem;
-    max-width: 600px;
-    text-align: center;
-    background: rgba(0, 0, 0, $background-opacity);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 1;
+  margin: auto;
+  padding: 2rem;
+  max-width: 600px;
+  text-align: center;
+  background: $background-color;
+  border-radius: 10px;
+  box-shadow: $box-shadow-light;
 
-    h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: $primary-color;
-        text-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: $primary-color;
+    text-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $text-color;
+  }
+
+  a {
+    color: $link-color;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: $link-hover-color;
+      text-shadow: $link-hover-text-shadow;
     }
-
-    p {
-        font-size: 1rem;
-        color:white
-    }
-
-    a {
-        color: $link-color;
-        text-decoration: none;
-        font-weight: bold;
-
-        &:hover {
-            color: $link-hover-color;
-            text-shadow: 0 0 5px $link-hover-color;
-        }
-    }
+  }
 }
 
 .button {
-    background-color: $primary-color;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-    margin: 0.5rem;
-    font-weight: normal; /* Changed from bold to normal */
-    padding: 0.75rem 1.5rem;
-    text-shadow: 0 0 5px $primary-color;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 5px $primary-color, 0 0 10px $primary-color, 0 0 15px $primary-color; /* Reduced glow */
+  background-color: $primary-color;
+  border: none;
+  border-radius: 5px;
+  color: $text-color;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0.5rem;
+  font-weight: normal;
+  padding: 0.75rem 1.5rem;
+  text-shadow: 0 0 5px $primary-color;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: $box-shadow-hover;
 
-    &:hover {
-        background-color: $button-hover-color;
-        transform: scale(1.05);
-        box-shadow: 0 0 10px $button-hover-color, 0 0 20px $button-hover-color, 0 0 30px $button-hover-color; /* Reduced glow */
-    }
+  &:hover {
+    background-color: $button-hover-color;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px $button-hover-color, 0 0 20px $button-hover-color,
+      0 0 30px $button-hover-color;
+  }
 
-    &:active {
-        background-color: $button-active-color;
-    }
+  &:active {
+    background-color: $button-active-color;
+  }
 }

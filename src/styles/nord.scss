@@ -1,0 +1,40 @@
+// Nord Theme Variables
+
+// Colors
+$primary-color: #88c0d0; // Nordic Blue
+$primary-hover-color: #81a1c1; // Light Blue
+
+$link-color: #8fbcbb; // Soft Greenish Blue
+$link-hover-color: #5e81ac; // Darker Blue
+$link-hover-text-shadow: 0 0 5px $link-hover-color;
+
+$background: #2e3440; // Dark gray-blue
+$background-active: #3b4252; // Darker gray-blue
+$background-opacity: 0.9;
+$background-color: rgba(46, 52, 64, $background-opacity); // Dark background with opacity
+
+$button-hover-color: #5e81ac; // Darker Blue
+$button-active-color: #4c566a; // Dark Gray-Blue
+$button-background-color: #434c5e; // Mid-tone background color
+
+$iframe-background: #3b4252; // Darker background for iframe
+$border-color: #4c566a; // Light gray-blue for borders
+$placeholder-color: #d8dee9; // Lighter gray for placeholders
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif;
+
+// Text
+$text-color: #eceff4; // Light text color for dark background
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light shadow
+$box-shadow-hover: 0 0 10px $primary-color, 0 0 20px $primary-color, 0 0 30px $primary-color;
+$box-shadow-color: rgba(0, 0, 0, 0.2); // Lighter shadow for light theme
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+// Borders
+$suggestion-border-color: #4c566a; // Light gray-blue border for suggestions
+
+// Breakpoints
+$media-breakpoint: 768px;

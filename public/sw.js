@@ -5,19 +5,11 @@ importScripts('/uv/uv.bundle.js');
 importScripts('/uv/uv.config.js');
 importScripts('/uv/uv.sw.js');
 importScripts('/workerware/index.js');
-importScripts('/plugins/alublocker.js');
 
 const ww = new WorkerWare({
     debug: true,
 });
 
-/*
-ww.use({
-    function: self.adblockExt.filterRequest,
-    events: ["fetch"],
-    name: "Alu Adblocker",
-});
-*/
 
 const uv = new UVServiceWorker();
 
@@ -53,10 +45,7 @@ async function loadPlugins() {
                             break;
                         }
 
-                        case "theme": {
-                            document.body.setAttribute("theme", plugin.style);
-                            break;
-                        }
+                        
                     }
                 }
             };
@@ -75,7 +64,7 @@ loadPlugins();
 
 self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
-        let mwResponse = await ww.run(event)();
+        const mwResponse = await ww.run(event)();
         if (mwResponse.includes(null)) {
             return;
         }

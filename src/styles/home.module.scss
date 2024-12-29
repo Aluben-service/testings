@@ -1,3 +1,4 @@
+@use "nord" as *;
 
 .controls {
     position: fixed;
@@ -13,7 +14,7 @@
     display: none;
 
     button {
-        background: #ffffff33;
+        background: $button-background-color;
         border: none;
         color: inherit;
         font-family: inherit;
@@ -32,15 +33,15 @@
         width: 100%;
         padding: 0.8rem;
         font-size: 1rem;
-        border: 1px solid #555;
+        border: 1px solid $border-color;
         border-radius: 5px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
+        background: $background-color;
+        color: $text-color;
         outline: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 5px $box-shadow-color;
 
         &::placeholder {
-            color: #aaa;
+            color: $placeholder-color;
         }
     }
 }
@@ -54,12 +55,12 @@
     width: 100%;
     height: calc(100% - 4rem);
     border: none;
-    background: #212121;
+    background: $iframe-background;
     user-select: none;
     display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $media-breakpoint) {
     main {
         padding: 1.5rem;
 
@@ -80,10 +81,10 @@
 .suggestions {
     display: none;
     position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #ccc;
+    background: $background-color;
+    border: 1px solid $suggestion-border-color;
     border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px $suggestion-box-shadow;
     width: 300px;
     max-height: 250px;
     overflow-y: auto;
@@ -91,6 +92,4 @@
     left: 50%;
     transform: translateX(-50%);
     opacity: 0.8;
-    
 }
-

@@ -1,6 +1,5 @@
 ---
 import Base from "@layouts/Base.astro";
-import baseStyles from "@styles/base.module.scss";
 import pluginStyles from "@styles/plugins.module.scss";
 import plugins from "@data/plugins.json";
 
@@ -13,25 +12,23 @@ const props = {
 ---
 
 <Base {...props}>
-  <main class={baseStyles.main}>
-    <h1 class={pluginStyles.title}>Aluben Plugin Manager</h1>
+  <h1 class={pluginStyles.title}>Aluben Plugin Manager</h1>
 
-    <ul class={pluginStyles.pluginGrid}>
-      {
-        plugins.map((plugin) => (
-          <li class={pluginStyles.pluginCard}>
-            <h2 class={pluginStyles.pluginName}>{plugin.name}</h2>
-            <p class={pluginStyles.pluginDescription}>
-              {plugin.description || "No description available."}
-            </p>
-            <button
-              data-plugin={JSON.stringify(plugin)}
-              class={`${pluginStyles.pluginButton} btn-install`}
-            />
-          </li>
-        ))
-      }
-    </ul>
-  </main>
-  <script src="@ts/plugins.ts"></script>
+  <ul class={pluginStyles.pluginGrid}>
+    {
+      plugins.map((plugin) => (
+        <li class={pluginStyles.pluginCard}>
+          <h2 class={pluginStyles.pluginName}>{plugin.name}</h2>
+          <p class={pluginStyles.pluginDescription}>
+            {plugin.description || "No description available."}
+          </p>
+          <button
+            data-plugin={JSON.stringify(plugin)}
+            class={`${pluginStyles.pluginButton} btn-install`}
+          />
+        </li>
+      ))
+    }
+  </ul>
+
 </Base>

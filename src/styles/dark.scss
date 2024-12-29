@@ -1,0 +1,39 @@
+// Dark Theme Variables
+
+// Colors
+$primary-color: #e426eb; // Primary color (purple)
+$primary-hover-color: #c218d8; // Hover color for primary elements (darker purple)
+$link-color: cyan; // Link color (cyan)
+$link-hover-color: magenta; // Link hover color (magenta)
+$link-hover-text-shadow: 0 0 5px magenta; // Text shadow on link hover
+
+$background: #1a1a1a; // Background color (dark gray)
+$background-active: #333333; // Background color when navbar is active (darker gray)
+$background-opacity: 0.8; // Background opacity (used for rgba)
+
+$button-hover-color: #c218d8; // Button hover color (purple)
+$button-active-color: #a015b5; // Button active color (darker purple)
+
+$background-color: rgba(24, 26, 27, 0.8); // Dark background with opacity
+$button-background-color: #ffffff33; // Button background color (with transparency)
+$border-color: #555; // Border color (dark gray)
+$placeholder-color: #aaa; // Placeholder text color
+$iframe-background: #212121; // Iframe background color
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif; // Primary font family
+
+// Text
+$text-color: #fff; // Default text color (white)
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light box shadow
+$box-shadow-hover: 0 0 10px #e426eb, 0 0 20px #e426eb, 0 0 30px #e426eb; // Button hover shadow
+$box-shadow-color: rgba(0, 0, 0, 0.5); // Box shadow color
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Suggestion box shadow
+
+// Borders
+$suggestion-border-color: #ccc; // Border color for suggestion box
+
+// Breakpoints
+$media-breakpoint: 768px; // Media breakpoint for responsiveness
