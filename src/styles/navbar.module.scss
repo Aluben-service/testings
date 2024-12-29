@@ -1,0 +1,108 @@
+@use "variables" as *; // Assuming your variables file includes things like colors, fonts, etc.
+
+// Define the navbar styles
+.navbar {
+  display: flex;
+  font-family: "Cascadia Code",
+    Roboto, sans-serif;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: $background;
+  box-shadow: $box-shadow-light;
+  opacity: $background-opacity;
+
+  // Navbar active state (mobile toggle)
+  &.active {
+    background-color: $background-active;
+  }
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: $primary-color;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &:hover {
+    color: $primary-hover-color;
+  }
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+
+  a {
+    font-size: 1.2rem;
+    color: $link-color;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $link-hover-color;
+      text-shadow: $link-hover-text-shadow;
+    }
+  }
+}
+
+.toggler {
+  display: none;
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: $primary-color;
+    transition: transform 0.3s ease;
+
+    &:nth-child(1) {
+      transform-origin: top left;
+    }
+
+    &:nth-child(3) {
+      transform-origin: bottom left;
+    }
+  }
+}
+
+// Mobile styles for the navbar
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .links {
+      flex-direction: column;
+      display: none;
+      width: 100%;
+      gap: 1rem;
+      padding-top: 1rem;
+
+      a {
+        font-size: 1.5rem;
+        padding: 0.5rem 1.5rem;
+        text-align: left;
+        width: 100%;
+      }
+    }
+
+    .toggler {
+      display: block;
+    }
+
+    &.active {
+      .links {
+        display: flex;
+      }
+    }
+  }
+}
+
+// Adding the hover effect to navbar links
+.links a:hover {
+  color: $link-hover-color;
+  text-shadow: $link-hover-text-shadow;
+}
