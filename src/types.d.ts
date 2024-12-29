@@ -7,6 +7,7 @@ interface PluginMetaData {
     scriptCopy? : Uint8Array | null;
     style?: string;
     description: string;
+    id: string;
 }
 
 interface Window {

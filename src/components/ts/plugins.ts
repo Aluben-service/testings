@@ -1,6 +1,7 @@
 
 // This code will run when the page loads to check the installation status of each plugin
 window.addEventListener("DOMContentLoaded", async () => {
+    setupDatabase(); // Set up the database when the page loads
     const installButtons = document.getElementsByClassName("btn-install");
 
     // Loop through all the install buttons

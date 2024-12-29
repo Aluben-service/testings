@@ -1,7 +1,7 @@
 ---
-import baseStyles from "../styles/base.module.scss";
+import baseStyles from "@styles/base.module.scss";
 const { title, description, favicon } = Astro.props;
-import Navbar from "../components/Navbar.astro";
+import Navbar from "@components/Navbar.astro";
 import Particles from "astro-particles";
 import type { ISourceOptions } from "tsparticles-engine";
 
@@ -10,7 +10,7 @@ const options: ISourceOptions = {
     color: "#000",
   },
   fullScreen: {
-    zIndex: 0,
+    zIndex: -1,
   },
   particles: {
     number: {
@@ -41,7 +41,7 @@ const options: ISourceOptions = {
     },
   },
 };
-import { ClientRouter } from "astro:transitions";
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <html lang="en" transition:name="root" transition:animate="none">
@@ -53,9 +53,9 @@ import { ClientRouter } from "astro:transitions";
     <link rel="icon" type="image/png" href={favicon} />
     <link rel="stylesheet" href="/styles.css" />
     <script is:inline defer src="/plugins.js"></script>
-    <ClientRouter />
+    <ViewTransitions />
   </head>
-  <body transition:name="none">
+  <body transition:name="fade">
     <script>
       import type { Engine } from "tsparticles-engine";
       import { loadSlim } from "tsparticles-slim";

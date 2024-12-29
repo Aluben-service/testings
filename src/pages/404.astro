@@ -13,7 +13,6 @@ const props = {
 ---
 
 <Base {...props}>
-  <main transition:name="slide" class={baseStyles.main}>
     <h1>404 - Page Not Found</h1>
     <p>
       Sorry, the page you are looking for does not exist. If you are using the
@@ -24,7 +23,6 @@ const props = {
     >
     <br />
     <button class={baseStyles.button} onclick="history.back()">Go back</button>
-  </main>
 
   <script is:inline src="/baremux/index.js"></script>
   <script is:inline src="/register-sw.js"></script>

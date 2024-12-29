@@ -6,6 +6,9 @@
     "events": ["fetch"],
     "script": "/plugins/alublocker.js",
     "type": "serviceWorker",
-    "description": "Blocks 97% of ads."
+    "description": "Blocks 97% of ads.",
+    "id": "adblocker",
+    "version": "1",
+    "author": "wearr"
   }
 ]

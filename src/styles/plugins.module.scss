@@ -11,10 +11,14 @@
 .pluginGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  height: clamp(20vh, 25vh, 100vh);
   gap: 1.5rem;
   list-style: none;
   padding: 0;
   margin: 2rem 0;
+  justify-content: center; /* Centers the grid items horizontally */
+  align-items: center; /* Centers the grid items vertically */
+  place-items: center; /* Shorthand for justify-content and align-items */
 }
 
 .pluginCard {

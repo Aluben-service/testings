@@ -1,0 +1,18 @@
+---
+import navbarStyles from "@styles/navbar.module.scss";
+---
+
+<nav class={navbarStyles.navbar} id="navbar">
+  <div id="logo" class={navbarStyles.logo}>Aluben</div>
+  <div class={navbarStyles.links}>
+    <a href="/" class="navbar-link">Home</a>
+    <a href="/plugins" class="navbar-link">Plugins</a>
+  </div>
+</nav>
+
+<script type="module">
+  import { navigate } from "astro:transitions";
+  document
+    .getElementById("logo")
+    .addEventListener("click", () => navigate("/"));
+</script>

@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "Cascadia Code";
-    src: url("CascadiaCode.woff2") format("woff2");
+    src: url("/CascadiaCode.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
 }
@@ -12,7 +12,7 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Cascadia Code",
+    font-family: "Cascadia Code",
         Roboto, sans-serif;
 }
 
@@ -35,8 +35,8 @@ html {
     }
 
     p {
-        font-size: 1.2rem;
-        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color:white
     }
 
     a {
