@@ -1,0 +1,40 @@
+// Alternative Theme Variables
+
+// Colors
+$primary-color: #c4a7e7; // Iris
+$primary-hover-color: #56949f; // Foam
+$link-color: #ebbcba; // Rose
+$link-hover-color: #f6c177; // Gold
+$link-hover-text-shadow: 0 0 5px #f6c177; // Text shadow on link hover
+
+$background: #232136; // Base
+$background-active: #2a273f; // Overlay
+$background-opacity: 0.9; // Background opacity (used for rgba)
+
+$button-hover-color: #56949f; // Foam
+$button-active-color: #9ccfd8; // Foam
+
+$background-color: rgba(35, 33, 54, 0.9); // Dark background with opacity
+$button-background-color: rgba(196, 167, 231, 0.2); // Iris background color (with transparency)
+$border-color: #908caa; // Subtle
+$placeholder-color: #908caa; // Subtle
+$iframe-background: #2a273f; // Overlay
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif; // Primary font family
+
+// Text
+$text-color: #e0def4; // Text
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light box shadow
+$box-shadow-hover: 0 0 10px #c4a7e7, 0 0 20px #c4a7e7, 0 0 30px #c4a7e7; // Button hover shadow
+$box-shadow-color: rgba(144, 140, 170, 0.5); // Box shadow color
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Suggestion box shadow
+$suggestion-hover-color: #3a3c50; // Darker hover color for moon
+
+// Borders
+$suggestion-border-color: #908caa; // Border color for suggestion box
+
+// Breakpoints
+$media-breakpoint: 768px; // Media breakpoint for responsiveness

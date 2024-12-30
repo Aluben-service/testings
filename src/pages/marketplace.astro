@@ -17,7 +17,7 @@ const props = {
   <ul class={pluginStyles.pluginGrid}>
     {
       plugins.map((plugin) => (
-        <li class={pluginStyles.pluginCard}>
+        <li transition:persist class={pluginStyles.pluginCard}>
           <h2 class={pluginStyles.pluginName}>{plugin.name}</h2>
           <p class={pluginStyles.pluginDescription}>
             {plugin.description || "No description available."}
@@ -30,5 +30,4 @@ const props = {
       ))
     }
   </ul>
-
 </Base>

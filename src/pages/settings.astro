@@ -1,0 +1,17 @@
+---
+import Base from "@layouts/Base.astro";
+import settingsStyles from "@styles/settings.module.scss";
+---
+
+<Base>
+  <h1>Settings</h1>
+  <p>Settings page content.</p>
+  <ul class={settingsStyles.pluginGrid}>
+    <li transition:persist class={settingsStyles.pluginCard}>
+      <h2 class={settingsStyles.pluginName}>falala</h2>
+      <p class={settingsStyles.pluginDescription}>tralala</p>
+      <button class={`${settingsStyles.pluginButton} btn-install`}></button>
+    </li>
+    
+  </ul>
+</Base>

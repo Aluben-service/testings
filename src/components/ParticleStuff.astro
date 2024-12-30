@@ -14,74 +14,121 @@ export interface ParticleProps {
     zIndex: number;
   };
 }
-// Default settings for Nord theme
-// Nord Theme Variables for Particles
-const nordColors = {
-  background: "#2e3440", // Dark background (Nord theme)
-  particleColor: "#88c0d0", // Nordic Blue for particles
-  lightGradientStart: "rgba(255, 255, 255, 1)", // Light start of gradient (Nord accent)
-  lightGradientStop: "rgba(255, 255, 255, 0)", // Light stop of gradient (Nord accent)
-  shadowColor: "rgba(228, 38, 235, 0.5)", // Magenta shadow color
+
+const themes = {
+  nord: {
+    colors: {
+      background: "#2e3440", // Dark background (Nord theme)
+      particleColor: "#88c0d0", // Nordic Blue for particles
+      lightGradientStart: "rgba(255, 255, 255, 1)", // Light start of gradient (Nord accent)
+      lightGradientStop: "rgba(255, 255, 255, 0)", // Light stop of gradient (Nord accent)
+      shadowColor: "rgba(228, 38, 235, 0.5)", // Magenta shadow color
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
+  rosePine: {
+    colors: {
+      background: "#21202e", // Rose Pine Base
+      particleColor: "#9ccfd8", // Rose Pine Foam
+      lightGradientStart: "rgba(255, 255, 255, 1)", // Light start of gradient
+      lightGradientStop: "rgba(255, 255, 255, 0)", // Light stop of gradient
+      shadowColor: "rgba(146, 119, 167, 0.5)", // Rose Pine Highlight Med (semi-transparent)
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
+  rosePineDawn: {
+    colors: {
+      background: "#f4ede8", // Rose Pine Dawn Base
+      particleColor: "#56949f", // Rose Pine Dawn Foam
+      lightGradientStart: "rgba(0, 0, 0, 0.5)", // Gradient start color
+      lightGradientStop: "rgba(0, 0, 0, 0)", // Gradient stop color
+      shadowColor: "rgba(152, 147, 165, 0.5)", // Rose Pine Dawn Muted (semi-transparent)
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
+  rosePineMoon: {
+    colors: {
+      background: "#232136", // Rose Pine Moon Base
+      particleColor: "#c4a7e7", // Rose Pine Moon Iris
+      lightGradientStart: "rgba(255, 255, 255, 1)", // Gradient start color
+      lightGradientStop: "rgba(255, 255, 255, 0)", // Gradient stop color
+      shadowColor: "rgba(144, 140, 170, 0.5)", // Rose Pine Moon Subtle (semi-transparent)
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
 };
 
-const nordSettings = {
-  particlesNumber: 50,
-  particleSize: 5,
-  opacity: 0.8,
-  zIndex: -1,
-  lightRadius: 50,
-};
+// Choose the theme dynamically or default to Rose Pine
+const themeName = Astro.props.theme;
+const selectedTheme = themes[themeName] || themes.rosePineMoon;
 
-// Particles configuration using Nord theme variables
-const defaultOptions: ISourceOptions = {
+// Particles configuration using selected theme variables
+const options: ISourceOptions = {
   background: {
-    color: nordColors.background, // Dark background from Nord theme
+    color: selectedTheme.colors.background, // Dark background from selected theme
   },
   fullScreen: {
-    zIndex: nordSettings.zIndex,
+    zIndex: selectedTheme.settings.zIndex,
   },
   particles: {
     number: {
-      value: nordSettings.particlesNumber, // Number of particles
+      value: selectedTheme.settings.particlesNumber, // Number of particles
     },
     move: {
       enable: true,
     },
     opacity: {
-      value: nordSettings.opacity, // Opacity of the particles
+      value: selectedTheme.settings.opacity, // Opacity of the particles
     },
     size: {
-      value: nordSettings.particleSize, // Size of the particles
+      value: selectedTheme.settings.particleSize, // Size of the particles
     },
     light: {
       area: {
         gradient: {
-          start: nordColors.lightGradientStart, // Gradient start color
-          stop: nordColors.lightGradientStop, // Gradient stop color
+          start: selectedTheme.colors.lightGradientStart, // Gradient start color
+          stop: selectedTheme.colors.lightGradientStop, // Gradient stop color
         },
-        radius: nordSettings.lightRadius, // Light radius
+        radius: selectedTheme.settings.lightRadius, // Light radius
       },
     },
     shadow: {
       enable: true,
-      color: nordColors.shadowColor, // Magenta shadow color
+      color: selectedTheme.colors.shadowColor, // Shadow color
       blur: 10,
     },
   },
 };
-
-const options = Astro.props.options || defaultOptions;
 ---
 
 <script>
   import type { Engine } from "tsparticles-engine";
   import { loadSlim } from "tsparticles-slim";
 
-  declare global {
-    interface Window {
-      particlesInit: (engine: Engine) => Promise<void>;
-    }
-  }
 
   window.particlesInit = async function (engine: Engine) {
     await loadSlim(engine);

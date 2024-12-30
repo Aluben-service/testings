@@ -13,7 +13,7 @@ const quotesData = (Object.values(quotes)[0] as { default: string[] }).default;
 const randomQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
 ---
 
-<Base {...props}>
+<Base data-theme="rosepine" {...props}>
   <h1>Aluben</h1>
   <p class="quote">
     <Fragment set:html={randomQuote} />
@@ -35,13 +35,14 @@ const randomQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
       <button onclick="action('reload', 'web')">Reload</button>
       <button onclick="action('close', 'web')">Close</button>
     </button>
-    <iframe class={styles.webFrame} id="web"></iframe>
-    <script is:inline src="/baremux/index.js"></script>
-    <script is:inline src="/uv/uv.bundle.js"></script>
-    <script is:inline src="/uv/uv.config.js"></script>
-    <script is:inline src="/baremod/index.js"></script>
-    <script is:inline src="/index.js"></script>
-    <script is:inline src="/search.js"></script>
-    <script is:inline src="/register-sw.js"></script>
   </section>
+
+  <iframe class={styles.webFrame} id="web"></iframe>
+  <script is:inline src="/baremux/index.js"></script>
+  <script is:inline src="/uv/uv.bundle.js"></script>
+  <script is:inline src="/uv/uv.config.js"></script>
+  <script is:inline src="/baremod/index.js"></script>
+  <script is:inline src="/index.js"></script>
+  <script is:inline src="/search.js"></script>
+  <script is:inline src="/register-sw.js"></script>
 </Base>
