@@ -1,5 +1,4 @@
 import wisp from "wisp-server-node";
-import { createServer } from "http";
 
 /**
  * Handles WebSocket upgrade requests

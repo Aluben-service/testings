@@ -4,6 +4,7 @@ const { title, description, favicon } = Astro.props;
 import Navbar from "@components/Navbar.astro";
 import { ClientRouter } from "astro:transitions";
 import ParticleStuff from "@components/ParticleStuff.astro";
+import RegisterSW from "@components/RegisterSW.astro";
 ---
 
 <html lang="en" transition:name="root" transition:animate="none">
@@ -14,9 +15,9 @@ import ParticleStuff from "@components/ParticleStuff.astro";
     <title>{title}</title>
     <link rel="icon" type="image/png" href={favicon} />
     <link rel="stylesheet" href="/styles.css" />
-    <script src="@ts/marketplace.ts"></script>
-
+    <script src="@ts/plugins.ts"></script>
     <ClientRouter />
+    <RegisterSW />
   </head>
   <body transition:name="fade">
     <Navbar />
@@ -24,7 +25,6 @@ import ParticleStuff from "@components/ParticleStuff.astro";
     <main class={baseStyles.main}>
       <slot />
     </main>
-    <!--   <ParticleStuff {options} />-->
     <ParticleStuff />
   </body>
 </html>

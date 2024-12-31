@@ -1,9 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import baseStyles from "../styles/base.module.scss";
-import kleur from "kleur";
-
-console.log(kleur.red("meow"));
 
 const props = {
   title: "Aluben",
@@ -18,7 +15,7 @@ const props = {
       Sorry, the page you are looking for does not exist. If you are using the
       proxy, click register service worker.
     </p>
-    <button class={baseStyles.button} onclick="errRegisterSW()"
+    <button class={baseStyles.button} onclick="( async () => { await registerSW(); location.reload() })()"
       >Register Service Worker</button
     >
     <br />

@@ -1,6 +1,6 @@
 ---
+import ProxyForm from "@components/ProxyForm.astro";
 import Base from "../layouts/Base.astro";
-import styles from "@styles/home.module.scss";
 
 const props = {
   title: "Aluben",
@@ -18,31 +18,5 @@ const randomQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
   <p class="quote">
     <Fragment set:html={randomQuote} />
   </p>
-  <form id="proxyForm" class={styles.proxyForm}>
-    <input
-      spellcheck="false"
-      autocomplete="off"
-      id="search"
-      type="text"
-      placeholder="Search the web"
-    />
-  </form>
-  <div id="suggestions" class={styles.suggestions}></div>
-  <section id="controls" class={styles.controls}>
-    <button class={styles.button} onclick="action('back', 'web')">Back</button>
-    <button onclick="action('forward', 'web')"
-      >Forward
-      <button onclick="action('reload', 'web')">Reload</button>
-      <button onclick="action('close', 'web')">Close</button>
-    </button>
-  </section>
-
-  <iframe class={styles.webFrame} id="web"></iframe>
-  <script is:inline src="/baremux/index.js"></script>
-  <script is:inline src="/uv/uv.bundle.js"></script>
-  <script is:inline src="/uv/uv.config.js"></script>
-  <script is:inline src="/baremod/index.js"></script>
-  <script is:inline src="/index.js"></script>
-  <script is:inline src="/search.js"></script>
-  <script is:inline src="/register-sw.js"></script>
+  <ProxyForm transition:persist />
 </Base>

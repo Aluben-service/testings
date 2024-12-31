@@ -1,0 +1,38 @@
+// Colors
+$primary-color: #dc8a78; // Catppuccin Latte: Rosewater
+$primary-hover-color: #dd7878; // Catppuccin Latte: Flamingo
+$link-color: #209fb5; // Catppuccin Latte: Sapphire
+$link-hover-color: #7287fd; // Catppuccin Latte: Lavender
+$link-hover-text-shadow: 0 0 5px #7287fd; // Text shadow on link hover (Catppuccin Latte: Lavender)
+
+$background: #ccd0da; // Catppuccin Latte: Base
+$background-active: #9ca0b0; // Catppuccin Latte: Overlay0
+$background-opacity: 0.9; // Background opacity
+
+$button-hover-color: #dd7878; // Catppuccin Latte: Flamingo
+$button-active-color: #fe640b; // Catppuccin Latte: Peach
+
+$background-color: rgba(239, 241, 245, 0.9); // Catppuccin Latte: Base with opacity
+$button-background-color: rgba(239, 241, 245, 0.2); // Catppuccin Latte: Base with transparency
+$border-color: #ccd0da; // Catppuccin Latte: Surface0
+$placeholder-color: #ccd0da; // Catppuccin Latte: Surface0
+$iframe-background: #acb0be; // Catppuccin Latte: Surface2
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif; // Primary font family
+
+// Text
+$text-color: #4c4f69; // Catppuccin Latte: Text
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light box shadow
+$box-shadow-hover: 0 0 10px #d20f39, 0 0 20px #d20f39, 0 0 30px #d20f39; // Hover shadow for buttons (Catppuccin Latte: Flamingo)
+$box-shadow-color: rgba(156, 160, 176, 0.5); // Catppuccin Latte: Overlay0 with opacity
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Suggestion box shadow
+
+// Borders
+$suggestion-border-color: #8992b5; // Catppuccin Latte: Surface1
+
+// Breakpoints
+$media-breakpoint: 768px;
+$suggestion-hover-color: #ccd0da; // Catppuccin Latte: Mantle

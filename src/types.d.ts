@@ -11,6 +11,12 @@ interface PluginMetaData {
 }
 
 interface Window {
-    particlesInit: (engine: Engine) => Promise<void>;
-    $scriptCopy: (script: string) => Promise<Uint8Array>;
+    __uv$config: {
+        encodeUrl: (url: string) => string;
+        prefix: string;
+    };
+	registerSW: () => Promise<void>;
+	action: (action: string, frameID: string) => void;
+	particlesInit: (engine: Engine) => Promise<void>;
+	$scriptCopy: (script: string) => Promise<Uint8Array>;
 }

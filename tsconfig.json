@@ -10,6 +10,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@styles/*": ["src/styles/*"],
       "@ts/*": ["src/components/ts/*"],
+      "@utils/*": ["src/components/utils/*"]
     }
   }
 }

@@ -1,0 +1,25 @@
+---
+import styles from "@styles/home.module.scss";
+---
+
+<form id="proxyForm" class={styles.proxyForm}>
+  <input
+    spellcheck="false"
+    autocomplete="off"
+    id="search"
+    type="text"
+    placeholder="Search the web"
+  />
+</form>
+<div id="suggestions" class={styles.suggestions}></div>
+<section id="controls" class={styles.controls}>
+  <button class={styles.button} onclick="action('back', 'web')">Back</button>
+  <button onclick="action('forward', 'web')"
+    >Forward
+    <button onclick="action('reload', 'web')">Reload</button>
+    <button onclick="action('close', 'web')">Close</button>
+  </button>
+</section>
+<iframe class={styles.webFrame} id="web"></iframe>
+
+<script src="@ts/index.ts"></script>

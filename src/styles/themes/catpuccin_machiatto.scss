@@ -1,0 +1,38 @@
+// Colors
+$primary-color: #f4dbd6; // Catppuccin Macchiato: Rosewater
+$primary-hover-color: #f0c6c6; // Catppuccin Macchiato: Flamingo
+$link-color: #8aadf4; // Catppuccin Macchiato: Sapphire
+$link-hover-color: #c6a0f6; // Catppuccin Macchiato: Lavender
+$link-hover-text-shadow: 0 0 5px #c6a0f6; // Text shadow on link hover (Catppuccin Macchiato: Lavender)
+
+$background: #24273a; // Catppuccin Macchiato: Base
+$background-active: #1e2030; // Catppuccin Macchiato: Overlay0
+$background-opacity: 0.9; // Background opacity
+
+$button-hover-color: #ed8796; // Catppuccin Macchiato: Flamingo
+$button-active-color: #f5a97f; // Catppuccin Macchiato: Peach
+
+$background-color: rgba(36, 39, 58, 0.9); // Catppuccin Macchiato: Base with opacity
+$button-background-color: rgba(36, 39, 58, 0.2); // Catppuccin Macchiato: Base with transparency
+$border-color: #5b6078; // Catppuccin Macchiato: Surface0
+$placeholder-color: #5b6078; // Catppuccin Macchiato: Surface0
+$iframe-background: #494d64; // Catppuccin Macchiato: Surface2
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif; // Primary font family
+
+// Text
+$text-color: #cad3f5; // Catppuccin Macchiato: Text
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light box shadow
+$box-shadow-hover: 0 0 10px #f0c6c6, 0 0 20px #f0c6c6, 0 0 30px #f0c6c6; // Hover shadow for buttons (Catppuccin Macchiato: Flamingo)
+$box-shadow-color: rgba(90, 94, 112, 0.5); // Catppuccin Macchiato: Overlay0 with opacity
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Suggestion box shadow
+
+// Borders
+$suggestion-border-color: #363a4f; // Catppuccin Macchiato: Surface1
+
+// Breakpoints
+$media-breakpoint: 768px;
+$suggestion-hover-color: #1e2030; // Catppuccin Macchiato: Mantle

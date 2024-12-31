@@ -1,0 +1,38 @@
+// Colors
+$primary-color: #f5e0dc; // Catppuccin Mocha: Rosewater
+$primary-hover-color: #f2cdcd; // Catppuccin Mocha: Flamingo
+$link-color: #89b4fa; // Catppuccin Mocha: Sapphire
+$link-hover-color: #cba6f7; // Catppuccin Mocha: Lavender
+$link-hover-text-shadow: 0 0 5px #cba6f7; // Text shadow on link hover (Catppuccin Mocha: Lavender)
+
+$background: #1e1e2e; // Catppuccin Mocha: Base
+$background-active: #181825; // Catppuccin Mocha: Overlay0
+$background-opacity: 0.9; // Background opacity
+
+$button-hover-color: #f38ba8; // Catppuccin Mocha: Flamingo
+$button-active-color: #fab387; // Catppuccin Mocha: Peach
+
+$background-color: rgba(30, 30, 46, 0.9); // Catppuccin Mocha: Base with opacity
+$button-background-color: rgba(30, 30, 46, 0.2); // Catppuccin Mocha: Base with transparency
+$border-color: #585b70; // Catppuccin Mocha: Surface0
+$placeholder-color: #585b70; // Catppuccin Mocha: Surface0
+$iframe-background: #6c7086; // Catppuccin Mocha: Surface2
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif; // Primary font family
+
+// Text
+$text-color: #cdd6f4; // Catppuccin Mocha: Text
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light box shadow
+$box-shadow-hover: 0 0 10px #f2cdcd, 0 0 20px #f2cdcd, 0 0 30px #f2cdcd; // Hover shadow for buttons (Catppuccin Mocha: Flamingo)
+$box-shadow-color: rgba(88, 91, 112, 0.5); // Catppuccin Mocha: Overlay0 with opacity
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Suggestion box shadow
+
+// Borders
+$suggestion-border-color: #45475a; // Catppuccin Mocha: Surface1
+
+// Breakpoints
+$media-breakpoint: 768px;
+$suggestion-hover-color: #181825; // Catppuccin Mocha: Mantle

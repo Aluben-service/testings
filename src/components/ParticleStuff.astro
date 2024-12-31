@@ -80,11 +80,75 @@ const themes = {
       lightRadius: 50,
     },
   },
+  catppuccinLatte: {
+    colors: {
+      background: "#eff1f5", // Latte Base
+      particleColor: "#dc8a78", // Latte Rosewater
+      lightGradientStart: "rgba(0, 0, 0, 0.5)", // Gradient start color
+      lightGradientStop: "rgba(0, 0, 0, 0)", // Gradient stop color
+      shadowColor: "rgba(181, 191, 226, 0.5)", // Latte Subtle shadow
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
+  catppuccinMacchiato: {
+    colors: {
+      background: "#24273a", // Macchiato Base
+      particleColor: "#f4dbd6", // Macchiato Rosewater
+      lightGradientStart: "rgba(255, 255, 255, 1)", // Gradient start color
+      lightGradientStop: "rgba(255, 255, 255, 0)", // Gradient stop color
+      shadowColor: "rgba(91, 96, 120, 0.5)", // Macchiato Subtle shadow
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
+  catppuccinMocha: {
+    colors: {
+      background: "#1e1e2e", // Mocha Base
+      particleColor: "#f5e0dc", // Mocha Rosewater
+      lightGradientStart: "rgba(255, 255, 255, 1)", // Gradient start color
+      lightGradientStop: "rgba(255, 255, 255, 0)", // Gradient stop color
+      shadowColor: "rgba(88, 91, 112, 0.5)", // Mocha Subtle shadow
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
+  catppuccinFrappe: {
+    colors: {
+      background: "#292c3c", // Frappe Base
+      particleColor: "#f2cdcd", // Frappe Rosewater
+      lightGradientStart: "rgba(255, 255, 255, 1)", // Gradient start color
+      lightGradientStop: "rgba(255, 255, 255, 0)", // Gradient stop color
+      shadowColor: "rgba(88, 91, 112, 0.5)", // Frappe Subtle shadow
+    },
+    settings: {
+      particlesNumber: 50,
+      particleSize: 5,
+      opacity: 0.8,
+      zIndex: -1,
+      lightRadius: 50,
+    },
+  },
 };
 
 // Choose the theme dynamically or default to Rose Pine
 const themeName = Astro.props.theme;
-const selectedTheme = themes[themeName] || themes.rosePineMoon;
+const selectedTheme = themes[themeName] || themes.catppuccinFrappe;
 
 // Particles configuration using selected theme variables
 const options: ISourceOptions = {
@@ -128,7 +192,6 @@ const options: ISourceOptions = {
 <script>
   import type { Engine } from "tsparticles-engine";
   import { loadSlim } from "tsparticles-slim";
-
 
   window.particlesInit = async function (engine: Engine) {
     await loadSlim(engine);
