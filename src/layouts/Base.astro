@@ -2,46 +2,8 @@
 import baseStyles from "@styles/base.module.scss";
 const { title, description, favicon } = Astro.props;
 import Navbar from "@components/Navbar.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import ParticleStuff from "@components/ParticleStuff.astro";
-import type { ISourceOptions } from "tsparticles-engine";
-
-const options: ISourceOptions = {
-  background: {
-    color: "#000",
-  },
-  fullScreen: {
-    zIndex: -1,
-  },
-  particles: {
-    number: {
-      value: 50,
-    },
-    move: {
-      enable: true,
-    },
-    opacity: {
-      value: 0.8,
-    },
-    size: {
-      value: 5,
-    },
-    light: {
-      area: {
-        gradient: {
-          start: "rgba(255, 255, 255, 1)",
-          stop: "rgba(255, 255, 255, 0)",
-        },
-        radius: 50,
-      },
-    },
-    shadow: {
-      enable: true,
-      color: "rgba(228, 38, 235, 0.5)",
-      blur: 10,
-    },
-  },
-};
 ---
 
 <html lang="en" transition:name="root" transition:animate="none">
@@ -52,8 +14,9 @@ const options: ISourceOptions = {
     <title>{title}</title>
     <link rel="icon" type="image/png" href={favicon} />
     <link rel="stylesheet" href="/styles.css" />
-    <script src="@ts/plugins.ts"></script>
-    <ViewTransitions />
+    <script src="@ts/marketplace.ts"></script>
+
+    <ClientRouter />
   </head>
   <body transition:name="fade">
     <Navbar />

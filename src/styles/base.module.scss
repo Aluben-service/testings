@@ -1,4 +1,4 @@
-@use "nord" as *;
+@use "themes/rosepine-moon" as *;
 
 @font-face {
   font-family: "Cascadia Code";
@@ -19,6 +19,9 @@ html {
   position: relative;
   z-index: 1;
   margin: auto;
+  min-height: 50vh;
+  height: 60vh;
+  max-width: 100vh;
   padding: 2rem;
   max-width: 600px;
   text-align: center;

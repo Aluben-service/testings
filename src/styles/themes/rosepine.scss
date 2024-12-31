@@ -1,0 +1,42 @@
+// Colors
+$primary-color: #ebbcba; // Rose Pine: Rose
+$primary-hover-color: #eb6f92; // Rose Pine: Love
+$link-color: #9ccfd8; // Rose Pine: Foam
+$link-hover-color: #c4a7e7; // Rose Pine: Iris
+$link-hover-text-shadow: 0 0 5px #c4a7e7; // Text shadow on link hover (Rose Pine: Iris)
+
+$background: #191724; // Rose Pine: Base
+$background-active: #26233a; // Rose Pine: Overlay
+$background-opacity: 0.9; // Background opacity
+
+$button-hover-color: #eb6f92; // Rose Pine: Love
+$button-active-color: #f6c177; // Rose Pine: Gold
+
+$background-color: rgba(25, 23, 36, 0.9); // Rose Pine: Base with opacity
+$button-background-color: rgba(235, 188, 186, 0.2); // Rose Pine: Rose with transparency
+$border-color: #6e6a86; // Rose Pine: Muted
+$placeholder-color: #6e6a86; // Rose Pine: Muted
+$iframe-background: #1f1d2e; // Rose Pine: Surface
+
+$highlight-low: #21202e; // Rose Pine: Highlight Low
+$highlight-med: #403d52; // Rose Pine: Highlight Med
+$highlight-high: #524f67; // Rose Pine: Highlight High
+
+// Fonts
+$font-primary: 'Cascadia Code', 'Roboto', sans-serif; // Primary font family
+
+// Text
+$text-color: #e0def4; // Rose Pine: Text
+
+// Shadows
+$box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); // Light box shadow
+$box-shadow-hover: 0 0 10px #ebbcba, 0 0 20px #ebbcba, 0 0 30px #ebbcba; // Hover shadow for buttons (Rose Pine: Rose)
+$box-shadow-color: rgba(64, 61, 82, 0.5); // Rose Pine: Highlight Med with opacity
+$suggestion-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Suggestion box shadow
+
+// Borders
+$suggestion-border-color: #6e6a86; // Rose Pine: Muted
+
+// Breakpoints
+$media-breakpoint: 768px;
+$suggestion-hover-color: #333; // Default hover color for suggestions

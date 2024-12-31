@@ -1,38 +1,3 @@
-
-// This code will run when the page loads to check the installation status of each plugin
-window.addEventListener("DOMContentLoaded", async () => {
-    setupDatabase(); // Set up the database when the page loads
-    const installButtons = document.getElementsByClassName("btn-install");
-
-    // Loop through all the install buttons
-    for (const btn of installButtons) {
-        const plugin = JSON.parse(btn.getAttribute("data-plugin") as string);
-
-        // Check if the plugin is already installed
-        const installed = await isInstalled(plugin.name);
-
-        // Update the button text based on the installation status
-        if (installed) {
-            btn.textContent = "Uninstall"; // If installed, show "Uninstall"
-        } else {
-            btn.textContent = "Install"; // If not installed, show "Install"
-        }
-
-        // Add click event listener for installation/uninstallation
-        btn.addEventListener("click", async () => {
-            if (btn.textContent === "Install") {
-                console.log("Installing plugin:", plugin);
-                await addPlugin(plugin);
-                btn.textContent = "Uninstall"; // Change button text to "Uninstall" after installation
-            } else {
-                console.log(`Uninstalling plugin "${plugin.name}"`);
-                await removePlugin(plugin.name);
-                btn.textContent = "Install"; // Change button text to "Install" after uninstallation
-            }
-        });
-    }
-});
-
 async function setupDatabase(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
         // Open the database with versioning (this will trigger onupgradeneeded if the version changes)
@@ -145,3 +110,4 @@ async function removePlugin(pluginName: string): Promise<void> {
         console.error("Error removing plugin:", err);
     }
 }
+export { setupDatabase, isInstalled, addPlugin, removePlugin };

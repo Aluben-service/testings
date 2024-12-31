@@ -89,19 +89,3 @@ async function removePlugin(pluginName) {
     }
 }
 
-// Example usage
-async function main() {
-    const adBlockerPlugin = {
-        name: "AdBlocker",
-        entryNamespace: "adblockExt",
-        entryFunction: "meow",
-        events: ["fetch"],
-        script: "self.adblockExt.filterRequest"
-    };
-
-    await addPlugin(adBlockerPlugin);
-    await listPlugins();
-    await removePlugin("AdBlocker");
-    await listPlugins();
-}
-

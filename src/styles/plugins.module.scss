@@ -1,4 +1,4 @@
-@use "nord" as *;
+@use "themes/rosepine-moon" as *;
 
 .title {
   font-size: 2.5rem;
@@ -24,6 +24,7 @@
 .pluginCard {
   background: rgba(0, 0, 0, $background-opacity);
   border-radius: 10px;
+  height: 170px; /* Set a fixed height for all cards */
   padding: 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
   display: flex;
@@ -65,7 +66,8 @@
     box-shadow 0.3s ease;
   box-shadow: 0 0 5px $primary-color, 0 0 10px $primary-color,
     0 0 15px $primary-color; /* Reduced glow */
-  width: 100%; // Full width within the card
+  width: 100%; /* Full width within the card */
+  margin-top: auto; /* Pushes the button to the bottom of the card */
 
   &:hover {
     background-color: $button-hover-color;

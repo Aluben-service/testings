@@ -74,4 +74,11 @@ export default defineConfig({
   adapter: node({
     mode: "middleware",
   }),
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
+  experimental: {
+    clientPrerender: true,
+  },
 });
