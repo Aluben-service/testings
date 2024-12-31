@@ -13,6 +13,8 @@ import compressor from "astro-compressor";
 import compress from "astro-compress";
 import playformCompress from "@playform/compress";
 
+import react from "@astrojs/react";
+
 //stolen from holy unbcloker
 const { handleUpgrade } = await import("./runtime.js");
 
@@ -69,7 +71,7 @@ export default defineConfig({
     fileExtensions: [".js", ".ts", ".webp", ".png", ".jpg", ".html"],
     gzip: true, // enable Gzip compression
     brotli: true, // enable Brotli compression
-  }), playformCompress()],
+  }), playformCompress(), react()],
   output: "server",
   adapter: node({
     mode: "middleware",
