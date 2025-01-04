@@ -1,0 +1,64 @@
+@use "themes/rosepine-moon" as *;
+
+.title {
+  font-size: 2.5rem;
+  color: $primary-color;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color;
+}
+
+.gameGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem; /* Adds spacing inside the grid container */
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameCard {
+  background: rgba(0, 0, 0, $background-opacity);
+  border-radius: 10px;
+  height: 170px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 20px $primary-color;
+  }
+}
+
+.gameName {
+  font-size: 1.5rem;
+  color: $primary-color;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px $primary-color;
+}
+
+.gameDescription {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.webFrame {
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: calc(100% - 4rem);
+  border: none;
+  background: $iframe-background;
+  user-select: none;
+  display: none;
+}

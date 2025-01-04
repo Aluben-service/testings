@@ -1,0 +1,50 @@
+---
+// Import necessary modules
+import Base from "@layouts/Base.astro";
+import games from "@data/games.json";
+import gameStyles from "@styles/games.module.scss";
+
+// Page properties
+const props = {
+  title: "Games",
+  description: "Games for Aluben.",
+  favicon: "https://google.com/favicon.ico",
+};
+
+// Parse the query parameters
+const urlParams = new URLSearchParams(Astro.url.search);
+const gameUrl = urlParams.get("game");
+const proxy = urlParams.get("proxy");
+---
+
+<Base {...props}>
+  <h1>Games</h1>
+
+  {gameUrl ? (
+    <div class={gameStyles.gameViewer}>
+      <h2>Now Playing:</h2>
+      <iframe 
+        src={proxy === "true" ? `/proxy?url=${encodeURIComponent(gameUrl)}` : gameUrl} 
+        class={gameStyles.webFrame} 
+        allowfullscreen 
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+      >
+      </iframe>
+      <br/>
+      <a href="/games" class={gameStyles.backButton}>Back to Game List</a>
+    </div>
+  ) : (
+    <ul class={gameStyles.gameGrid}>
+      {games.map((game) => (
+        <li transition:persist class={gameStyles.gameCard}>
+          <a href={`games?game=${encodeURIComponent(game.url)}&proxy=${game.proxyOn}`}>
+            <h2 class={gameStyles.gameName}>{game.name}</h2>
+            <p class={gameStyles.gameDescription}>
+              {game.description || "No description available."}
+            </p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>

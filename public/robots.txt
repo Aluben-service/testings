@@ -1,2 +1,5 @@
 User-agent: *
-Disallow: /a
+Allow: /
+Allow: /games
+Allow: /plugins
+Allow: /settings

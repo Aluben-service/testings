@@ -1,15 +1,15 @@
-@use "themes/catpuccin_frappe" as *;
+@use "themes/rosepine-moon" as *;
 
 @font-face {
   font-family: "Cascadia Code";
   src: url("/CascadiaCode.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 body,
 html {
-  
   margin: 0;
   padding: 0;
   box-sizing: border-box;

@@ -1,9 +1,15 @@
 ---
 import Base from "@layouts/Base.astro";
 import settingsStyles from "@styles/settings.module.scss";
+
+const props = {
+  title: "Settings - Aluben",
+  description: "Settings for Aluben.",
+  favicon: "https://google.com/favicon.ico",
+};
 ---
 
-<Base>
+<Base {...props}>
   <h1>Settings</h1>
   <p>Settings page content.</p>
   <ul class={settingsStyles.pluginGrid}>

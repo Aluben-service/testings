@@ -1,19 +1,8 @@
----
-import Particles from "astro-particles";
-import type { ISourceOptions } from "tsparticles-engine";
-
-export interface ParticleProps {
-  particleOptions?: {
-    background: string;
-    particleColor: string;
-    opacity: number;
-    particleSize: number;
-    particlesNumber: number;
-    shadowColor: string;
-    lightRadius: number;
-    zIndex: number;
-  };
-}
+<script lang="ts">
+  import Particles, { particlesInit } from '@tsparticles/svelte';
+  import { loadSlim } from "@tsparticles/slim";
+  import type { ISourceOptions, Engine } from "@tsparticles/engine";
+    let particlesUrl = 'http://foo.bar/particles.json'; // placeholder, replace it with a real url
 
 const themes = {
   nord: {
@@ -146,56 +135,54 @@ const themes = {
   },
 };
 
-// Choose the theme dynamically or default to Rose Pine
-const themeName = Astro.props.theme;
-const selectedTheme = themes[themeName] || themes.catppuccinFrappe;
+  const selectedTheme = themes.rosePineMoon;
 
-// Particles configuration using selected theme variables
-const options: ISourceOptions = {
-  background: {
-    color: selectedTheme.colors.background, // Dark background from selected theme
-  },
-  fullScreen: {
-    zIndex: selectedTheme.settings.zIndex,
-  },
-  particles: {
-    number: {
-      value: selectedTheme.settings.particlesNumber, // Number of particles
+  const options: ISourceOptions = {
+    background: {
+      color: selectedTheme.colors.background,
     },
-    move: {
-      enable: true,
+    fullScreen: {
+      zIndex: selectedTheme.settings.zIndex,
     },
-    opacity: {
-      value: selectedTheme.settings.opacity, // Opacity of the particles
-    },
-    size: {
-      value: selectedTheme.settings.particleSize, // Size of the particles
-    },
-    light: {
-      area: {
-        gradient: {
-          start: selectedTheme.colors.lightGradientStart, // Gradient start color
-          stop: selectedTheme.colors.lightGradientStop, // Gradient stop color
+    particles: {
+      number: {
+        value: selectedTheme.settings.particlesNumber,
+      },
+      move: {
+        enable: true,
+      },
+      opacity: {
+        value: selectedTheme.settings.opacity,
+      },
+      size: {
+        value: selectedTheme.settings.particleSize,
+      },
+      light: {
+        area: {
+          gradient: {
+            start: selectedTheme.colors.lightGradientStart,
+            stop: selectedTheme.colors.lightGradientStop,
+          },
+          radius: selectedTheme.settings.lightRadius,
         },
-        radius: selectedTheme.settings.lightRadius, // Light radius
+      },
+      shadow: {
+        enable: true,
+        color: selectedTheme.colors.shadowColor,
+        blur: 10,
       },
     },
-    shadow: {
-      enable: true,
-      color: selectedTheme.colors.shadowColor, // Shadow color
-      blur: 10,
-    },
-  },
-};
----
-
-<script>
-  import type { Engine } from "tsparticles-engine";
-  import { loadSlim } from "tsparticles-slim";
-
-  window.particlesInit = async function (engine: Engine) {
-    await loadSlim(engine);
   };
+
+    void particlesInit(async (engine) => {
+        await loadSlim(engine);
+    });
 </script>
 
-<Particles id="tsparticles" options={options} init="particlesInit" />
+
+<Particles
+        id="tsparticles"
+        class="put your classes here"
+        style=""
+        url={particlesUrl}
+/>

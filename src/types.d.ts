@@ -11,6 +11,9 @@ interface PluginMetaData {
 }
 
 interface Window {
+    BareMux: {
+        BareMuxConnection: typeof BareMuxConnection;
+    }
     __uv$config: {
         encodeUrl: (url: string) => string;
         prefix: string;

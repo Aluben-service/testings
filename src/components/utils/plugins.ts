@@ -3,14 +3,16 @@ async function setupDatabase(): Promise<IDBDatabase> {
         // Open the database with versioning (this will trigger onupgradeneeded if the version changes)
         const dbRequest = indexedDB.open("PluginDB", 2); // Version 2 to ensure upgrade if needed
 
-        dbRequest.onupgradeneeded = (event) => {
-            const db = event?.target?.result as IDBDatabase;
-            const transaction = event.target?.transaction;
+        dbRequest.onupgradeneeded = () => {
+            const db = dbRequest.result as IDBDatabase;
+            const transaction: IDBTransaction | null = dbRequest.transaction;
 
             // Create the "Plugins" object store if it doesn't exist
             db.createObjectStore("Plugins", { keyPath: "name" });
             console.log("Plugins object store created.");
 
+
+            if(!transaction) throw new Error("Transaction is null");
 
             // Ensure the transaction is complete before resolving the promise
             transaction.oncomplete = () => {
@@ -19,8 +21,8 @@ async function setupDatabase(): Promise<IDBDatabase> {
             };
         };
 
-        dbRequest.onsuccess = (event) => {
-            const db = event.target?.result as IDBDatabase;
+        dbRequest.onsuccess = () => {
+            const db = dbRequest.result as IDBDatabase;
             resolve(db); // Resolve the promise when the DB is successfully opened
         };
 
