@@ -1,0 +1,98 @@
+{
+  "nord": {
+    "colors": {
+      "background": "#2e3440",
+      "particleColor": "#88c0d0",
+      "lightGradientStart": "",
+      "lightGradientStop": "",
+      "shadowColor": ""
+    },
+    "settings": {
+      "particlesNumber": 50,
+      "particleSize": 5,
+      "opacity": 0.8,
+      "zIndex": -1,
+      "lightRadius": 50
+    }
+  },
+  "rosePine": {
+    "colors": {
+      "background": "#21202e",
+      "particleColor": "#9ccfd8",
+      "lightGradientStart": "rgba(255, 255, 255, 1)",
+      "lightGradientStop": "rgba(255, 255, 255, 0)",
+      "shadowColor": "rgba(146, 119, 167, 0.5)"
+    },
+    "settings": {
+      "particlesNumber": 50,
+      "particleSize": 5,
+      "opacity": 0.8,
+      "zIndex": -1,
+      "lightRadius": 50
+    }
+  },
+  "rosePineMoon": {
+    "colors": {
+      "background": "#2a283e",
+      "particleColor": "#c4a7e7",
+      "lightGradientStart": "rgba(255, 255, 255, 1)",
+      "lightGradientStop": "rgba(255, 255, 255, 0)",
+      "shadowColor": "rgba(144, 140, 170, 0.5)"
+    },
+    "settings": {
+      "particlesNumber": 50,
+      "particleSize": 5,
+      "opacity": 0.8,
+      "zIndex": -1,
+      "lightRadius": 50
+    }
+  },
+  "catppuccinMacchiato": {
+    "colors": {
+      "background": "#24273a",
+      "particleColor": "#f4dbd6",
+      "lightGradientStart": "rgba(255, 255, 255, 1)",
+      "lightGradientStop": "rgba(255, 255, 255, 0)",
+      "shadowColor": "rgba(91, 96, 120, 0.5)"
+    },
+    "settings": {
+      "particlesNumber": 50,
+      "particleSize": 5,
+      "opacity": 0.8,
+      "zIndex": -1,
+      "lightRadius": 50
+    }
+  },
+  "catppuccinMocha": {
+    "colors": {
+      "background": "#1e1e2e",
+      "particleColor": "#f5e0dc",
+      "lightGradientStart": "rgba(255, 255, 255, 1)",
+      "lightGradientStop": "rgba(255, 255, 255, 0)",
+      "shadowColor": "rgba(88, 91, 112, 0.5)"
+    },
+    "settings": {
+      "particlesNumber": 50,
+      "particleSize": 5,
+      "opacity": 0.8,
+      "zIndex": -1,
+      "lightRadius": 50
+    }
+  },
+  "catppuccinFrappe": {
+    "colors": {
+      "background": "#292c3c",
+      "particleColor": "#f2cdcd",
+      "lightGradientStart": "rgba(255, 255, 255, 1)",
+      "lightGradientStop": "rgba(255, 255, 255, 0)",
+      "shadowColor": "rgba(88, 91, 112, 0.5)"
+    },
+    "settings": {
+      "particlesNumber": 50,
+      "particleSize": 5,
+      "opacity": 0.8,
+      "zIndex": -1,
+      "lightRadius": 50
+    }
+  }
+}

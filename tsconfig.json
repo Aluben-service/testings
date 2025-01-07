@@ -11,12 +11,26 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@data/*": ["src/assets/data/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@styles/*": ["src/styles/*"],
-      "@ts/*": ["src/components/ts/*"],
-      "@utils/*": ["src/components/utils/*"]
-    }
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@data/*": [
+        "src/assets/data/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@ts/*": [
+        "src/components/ts/*"
+      ],
+      "@utils/*": [
+        "src/components/utils/*"
+      ]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }

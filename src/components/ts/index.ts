@@ -2,6 +2,7 @@
 import { search } from "@utils/search.ts";
 import { registerSW } from "@utils/registerSW.ts";
 
+self.registerSW = registerSW;
 
 async function initialize() {
 	const form = document.getElementById("proxyForm") as HTMLFormElement;
@@ -31,8 +32,8 @@ async function initialize() {
 		if ((await connection.getTransport()) !== "/epoxy/index.mjs") {
 			await connection.setTransport("/epoxy/index.js", [{ wisp: wispUrl }]);
 		}
-
 		frame.src = self.__uv$config.prefix + self.__uv$config.encodeUrl(url);
+
 		address.value = "";
 		suggestions.style.display = "none";
 	}

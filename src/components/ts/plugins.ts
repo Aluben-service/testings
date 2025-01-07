@@ -1,14 +1,12 @@
 import {
-	setupDatabase,
 	isInstalled,
 	addPlugin,
 	removePlugin,
-} from "@components/utils/plugins";
+} from "@utils/plugins";
 
 
 
 async function initialize() {
-	setupDatabase();
 
 	const buttons = document.querySelectorAll("[data-plugin]");
 

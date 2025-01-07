@@ -8,10 +8,10 @@ $link-color: #8fbcbb; // Soft Greenish Blue
 $link-hover-color: #5e81ac; // Darker Blue
 $link-hover-text-shadow: 0 0 5px $link-hover-color;
 
-$background: #2e3440; // Dark gray-blue
+$background: #3b4252; // Dark gray-blue
 $background-active: #3b4252; // Darker gray-blue
 $background-opacity: 0.9;
-$background-color: rgba(46, 52, 64, $background-opacity); // Dark background with opacity
+$background-color: rgba(59, 66, 82, $background-opacity); // Dark background with opacity
 
 $button-hover-color: #5e81ac; // Darker Blue
 $button-active-color: #4c566a; // Dark Gray-Blue
@@ -22,7 +22,7 @@ $border-color: #4c566a; // Light gray-blue for borders
 $placeholder-color: #d8dee9; // Lighter gray for placeholders
 
 // Fonts
-$font-primary: 'Cascadia Code', 'Roboto', sans-serif;
+$font-primary: 'Fira Code', 'Roboto', sans-serif;
 
 // Text
 $text-color: #eceff4; // Light text color for dark background

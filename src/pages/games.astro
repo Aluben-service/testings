@@ -20,31 +20,39 @@ const proxy = urlParams.get("proxy");
 <Base {...props}>
   <h1>Games</h1>
 
-  {gameUrl ? (
-    <div class={gameStyles.gameViewer}>
-      <h2>Now Playing:</h2>
-      <iframe 
-        src={proxy === "true" ? `/proxy?url=${encodeURIComponent(gameUrl)}` : gameUrl} 
-        class={gameStyles.webFrame} 
-        allowfullscreen 
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-      >
-      </iframe>
-      <br/>
-      <a href="/games" class={gameStyles.backButton}>Back to Game List</a>
-    </div>
-  ) : (
-    <ul class={gameStyles.gameGrid}>
-      {games.map((game) => (
-        <li transition:persist class={gameStyles.gameCard}>
-          <a href={`games?game=${encodeURIComponent(game.url)}&proxy=${game.proxyOn}`}>
-            <h2 class={gameStyles.gameName}>{game.name}</h2>
-            <p class={gameStyles.gameDescription}>
-              {game.description || "No description available."}
-            </p>
-          </a>
-        </li>
-      ))}
-    </ul>
-  )}
+  {
+    gameUrl ? (
+      <div class={gameStyles.gameViewer}>
+        <h2>Now Playing:</h2>
+        <iframe
+          src={
+            proxy === "true"
+              ? `/proxy?url=${encodeURIComponent(gameUrl)}`
+              : gameUrl
+          }
+          class={gameStyles.webFrame}
+          allowfullscreen
+          sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        />
+        <br />
+        <a href="/games" class={gameStyles.backButton}>
+          Back to Game List
+        </a>
+      </div>
+    ) : (
+      <ul class={gameStyles.gameGrid}>
+        {games.map((game) => (
+          <li transition:persist class={gameStyles.gameCard}>
+            <a
+              href={`?game=${encodeURIComponent(game.url)}&proxy=${game.proxyOn}`}
+              class={gameStyles.gameLink}
+            >
+              <h2 class={gameStyles.gameName}>{game.name}</h2>
+              <img width="70%" height="100%" src={game.image} alt={game.name} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 </Base>

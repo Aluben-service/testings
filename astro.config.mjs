@@ -13,9 +13,15 @@ import compressor from "astro-compressor";
 import compress from "astro-compress";
 import playformCompress from "@playform/compress";
 
-import svelte from "@astrojs/svelte";
 
-//import react from "@astrojs/react";
+
+import react from "@astrojs/react";
+
+
+
+import tailwind from "@astrojs/tailwind";
+
+
 
 //stolen from holy unbcloker
 const { handleUpgrade } = await import("./runtime.js");
@@ -75,12 +81,11 @@ export default defineConfig({
                 };
             },
         },
-		}, compress({ JavaScript: true }), compressor({
+        }, compress({ JavaScript: true }), compressor({
         fileExtensions: [".js", ".ts", ".webp", ".png", ".jpg", ".html"],
         gzip: true, // enable Gzip compression
         brotli: true, // enable Brotli compression
-		}), // react()
-    playformCompress(), svelte()],
+        }), playformCompress(), react(), tailwind({applyBaseStyles: false})],
     output: "server",
     adapter: node({
         mode: "middleware",
