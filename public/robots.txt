@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Allow: /games
+Allow: /apps
 Allow: /plugins
 Allow: /settings

@@ -24,10 +24,8 @@ async function registerSW(): Promise<void> {
 			`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/` ||
 			"wss://tomp.app/wisp";
 
-		console.log("wispServer", wispServer);
 
-		await connection.setTransport("/epoxy/index.js", [{ wisp: wispServer }]);
-		console.log("Transport was epoxy");
+		await connection.setTransport("/libcurl/index.mjs", [{ wisp: wispServer }]);
 	} catch (error) {
 		console.error("Failed to register service worker:", error);
 	}

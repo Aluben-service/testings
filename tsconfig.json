@@ -28,7 +28,8 @@
       ],
       "@utils/*": [
         "src/components/utils/*"
-      ]
+      ],
+      "@/**/*": "src/**/*"
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

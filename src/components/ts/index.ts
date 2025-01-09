@@ -29,8 +29,8 @@ async function initialize() {
 
 		const wispUrl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/wisp/`;
 
-		if ((await connection.getTransport()) !== "/epoxy/index.mjs") {
-			await connection.setTransport("/epoxy/index.js", [{ wisp: wispUrl }]);
+		if ((await connection.getTransport()) !== "/libcurl/index.mjs") {
+			await connection.setTransport("/libcurl/index.mjs", [{ wisp: wispUrl }]);
 		}
 		frame.src = self.__uv$config.prefix + self.__uv$config.encodeUrl(url);
 

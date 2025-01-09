@@ -8,7 +8,7 @@
   text-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color;
 }
 
-.gameGrid {
+.appGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
@@ -18,7 +18,7 @@
   align-items: center;
 }
 
-.gameCard {
+.appCard {
   background: rgba(0, 0, 0, $background-opacity);
   border-radius: 10px;
   height: 170px;
@@ -36,14 +36,14 @@
   }
 }
 
-.gameName {
+.appName {
   font-size: 1.5rem;
   color: $primary-color;
   margin-bottom: 0.5rem;
   text-shadow: 0 0 10px $primary-color;
 }
 
-.gameDescription {
+.appDescription {
   font-size: 1rem;
   color: #ddd;
   margin-bottom: 1rem;

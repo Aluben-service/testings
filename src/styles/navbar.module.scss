@@ -1,18 +1,20 @@
-@use "themes/catpuccin_machiatto" as *;
+@use "themes/rosepine-moon" as *;
 
 // Define the navbar styles
 .navbar {
-    font-family: $font-primary;
-
   display: flex;
+  font-family: "Cascadia Code",
+    Roboto, sans-serif;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   background-color: $background;
   box-shadow: $box-shadow-light;
+  opacity: $background-opacity;
 
-  &.sidebar-active {
-    position: relative;
+  // Navbar active state (mobile toggle)
+  &.active {
+    background-color: $background-active;
   }
 }
 
@@ -27,37 +29,23 @@
   }
 }
 
-// Sidebar styles
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -100%; // Hidden by default
-  width: 250px;
-  height: 100vh;
-  background-color: $background-active;
-  box-shadow: $box-shadow-light;
-  padding: 2rem 1.5rem;
+.links {
   display: flex;
-  flex-direction: column;
   gap: 1.5rem;
-  transition: left 0.3s ease-in-out;
 
   a {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: $link-color;
     text-decoration: none;
+    text-transform: uppercase;
 
     &:hover {
       color: $link-hover-color;
+      text-shadow: $link-hover-text-shadow;
     }
-  }
-
-  &.active {
-    left: 0; // Slide in when active
   }
 }
 
-// Toggler button
 .toggler {
   display: none;
   cursor: pointer;
@@ -78,27 +66,43 @@
       transform-origin: bottom left;
     }
   }
+}
 
-  .sidebar-active & span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
+// Mobile styles for the navbar
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
 
-  .sidebar-active & span:nth-child(2) {
-    opacity: 0;
-  }
+    .links {
+      flex-direction: column;
+      display: none;
+      width: 100%;
+      gap: 1rem;
+      padding-top: 1rem;
 
-  .sidebar-active & span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+      a {
+        font-size: 1.5rem;
+        padding: 0.5rem 1.5rem;
+        text-align: left;
+        width: 100%;
+      }
+    }
+
+    .toggler {
+      display: block;
+    }
+
+    &.active {
+      .links {
+        display: flex;
+      }
+    }
   }
 }
 
-// Responsive styles
-@media screen and (max-width: 768px) {
-  .links {
-    display: none; // Hide links on smaller screens
-  }
-
-  .toggler {
-    display: block; // Show toggler
-  }
+// Adding the hover effect to navbar links
+.links a:hover {
+  color: $link-hover-color;
+  text-shadow: $link-hover-text-shadow;
 }

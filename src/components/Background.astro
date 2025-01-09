@@ -1,57 +1,64 @@
 ---
-import Particles from "astro-particles";
+
+let options = {}
+if (navigator.userAgent.includes("Firefox")) {
+} else {
+  import Particles from "astro-particles";
 import themes from "@data/background.json"; // Import the JSON file
-import type { ISourceOptions } from "tsparticles-engine";
 
+  const { theme } = Astro.props; // Theme name passed as a prop
+  //@ts-ignore
+  const selectedTheme = themes[theme] || themes.rosePineMoon; // Default to Nord if theme not found
 
-const { theme } = Astro.props; // Theme name passed as a prop
-//@ts-ignore
-const selectedTheme = themes[theme] || themes.catppuccinMacchiato; // Default to Nord if theme not found
-
-const options: ISourceOptions = {
-  background: {
-    color: selectedTheme.colors.background,
-  },
-  fullScreen: {
-    zIndex: selectedTheme.settings.zIndex,
-  },
-  particles: {
-    number: {
-      value: selectedTheme.settings.particlesNumber,
+  options = {
+    background: {
+      color: selectedTheme.colors.background,
     },
-    move: {
-      enable: true,
+    fullScreen: {
+      zIndex: selectedTheme.settings.zIndex,
     },
-    opacity: {
-      value: selectedTheme.settings.opacity,
-    },
-    size: {
-      value: selectedTheme.settings.particleSize,
-    },
-    light: {
-      area: {
-        gradient: {
-          start: selectedTheme.colors.lightGradientStart,
-          stop: selectedTheme.colors.lightGradientStop,
+    particles: {
+      number: {
+        value: selectedTheme.settings.particlesNumber,
+      },
+      move: {
+        enable: true,
+      },
+      opacity: {
+        value: selectedTheme.settings.opacity,
+      },
+      size: {
+        value: selectedTheme.settings.particleSize,
+      },
+      light: {
+        area: {
+          gradient: {
+            start: selectedTheme.colors.lightGradientStart,
+            stop: selectedTheme.colors.lightGradientStop,
+          },
+          radius: selectedTheme.settings.lightRadius,
         },
-        radius: selectedTheme.settings.lightRadius,
+      },
+      shadow: {
+        enable: true,
+        color: selectedTheme.colors.shadowColor,
+        blur: 10,
       },
     },
-    shadow: {
-      enable: true,
-      color: selectedTheme.colors.shadowColor,
-      blur: 10,
-    },
-  },
-};
+  };
+}
 ---
 
-<script>
+<script src="@components/localforage.js"></script>
+
+<script defer>
   import type { Engine } from "tsparticles-engine";
   import { loadSlim } from "tsparticles-slim";
 
+  const particlesOn = localforage.getItem("particles") || false;
+
   window.particlesInit = async function (engine: Engine) {
-    await loadSlim(engine);
+    if (particles) await loadSlim(engine);
   };
 </script>
 

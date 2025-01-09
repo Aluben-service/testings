@@ -1,7 +1,7 @@
 [
     {
         "name": "Basket Random",
-        "image": "https://rawcdn.githack.com/Aluben-service/Aluben-Assets/5a35b67ad75eb7c54b7a989914c026b765176e27/basketrandom/Basket_Random.webp",
+        "image": "@assets/images/basketrandom.avif",
         "url": "https://rawcdn.githack.com/Aluben-service/Aluben-Assets/e416aa26b34fd8f54dee6823ff710aa107749dc0/basketrandom/index.html",
         "proxyOn": false
     }

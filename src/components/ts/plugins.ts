@@ -4,8 +4,12 @@ import {
 	removePlugin,
 } from "@utils/plugins";
 
+import localforage from 'localforage';
 
-
+localforage.createInstance({
+	name: "PluginDB",
+	storeName: "Plugins", // Corresponds to the "Plugins" object store
+});
 async function initialize() {
 
 	const buttons = document.querySelectorAll("[data-plugin]");
