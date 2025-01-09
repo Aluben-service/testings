@@ -14,9 +14,7 @@ async function registerSW(): Promise<void> {
 	}
 
 	try {
-		await navigator.serviceWorker.register("sw.js", {
-			scope: "/service/",
-		});
+		await navigator.serviceWorker.register("sw.js");
 
 		const connection = new self.BareMux.BareMuxConnection("/baremux/worker.js");
 		const wispServer: string =

@@ -2,7 +2,6 @@
 import { search } from "@utils/search.ts";
 import { registerSW } from "@utils/registerSW.ts";
 
-self.registerSW = registerSW;
 
 async function initialize() {
 	const form = document.getElementById("proxyForm") as HTMLFormElement;
@@ -32,6 +31,8 @@ async function initialize() {
 		if ((await connection.getTransport()) !== "/libcurl/index.mjs") {
 			await connection.setTransport("/libcurl/index.mjs", [{ wisp: wispUrl }]);
 		}
+
+	
 		frame.src = self.__uv$config.prefix + self.__uv$config.encodeUrl(url);
 
 		address.value = "";

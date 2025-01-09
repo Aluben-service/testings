@@ -2,6 +2,10 @@
 importScripts('/uv/uv.bundle.js');
 importScripts('/uv/uv.config.js');
 importScripts('/uv/uv.sw.js');
+
+  importScripts("/scramjet/scramjet.wasm.js");
+importScripts("/scramjet/scramjet.shared.js");
+importScripts("/scramjet/scramjet.worker.js");
 importScripts('/workerware/index.js');
 
 const ww = new WorkerWare({
@@ -10,6 +14,17 @@ const ww = new WorkerWare({
 
 
 const uv = new UVServiceWorker();
+const scram = new ScramjetController({
+	prefix: "/~/scramjet/",
+	files: {
+		wasm: "/scramjet/scramjet.wasm.js",
+		worker: "/scramjet/scramjet.worker.js",
+		client: "/scramjet/scramjet.client.js",
+		shared: "/scramjet/scramjet.shared.js",
+		sync: "/scramjet/scramjet.sync.js",
+	},
+});
+scram.init();
 
 // Function to load plugins from IndexedDB
 async function loadPlugins() {
@@ -68,6 +83,9 @@ self.addEventListener('fetch', (event) => {
         }
         if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
             return await uv.fetch(event);
+        }
+        if (event.request.url.startsWith(`${location.origin}/~/scramjet/`)) {
+            return scram.encodeUrl(url);
         }
         return await fetch(event.request);
     })());

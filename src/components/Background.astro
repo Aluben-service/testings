@@ -1,16 +1,13 @@
 ---
-
-let options = {}
-if (navigator.userAgent.includes("Firefox")) {
-} else {
-  import Particles from "astro-particles";
+import Particles from "astro-particles";
 import themes from "@data/background.json"; // Import the JSON file
+
 
   const { theme } = Astro.props; // Theme name passed as a prop
   //@ts-ignore
   const selectedTheme = themes[theme] || themes.rosePineMoon; // Default to Nord if theme not found
 
-  options = {
+  const options = {
     background: {
       color: selectedTheme.colors.background,
     },
@@ -46,19 +43,20 @@ import themes from "@data/background.json"; // Import the JSON file
       },
     },
   };
-}
+
 ---
 
 <script src="@components/localforage.js"></script>
 
-<script defer>
+<script>
   import type { Engine } from "tsparticles-engine";
   import { loadSlim } from "tsparticles-slim";
+  import localforage from 'localforage';
 
   const particlesOn = localforage.getItem("particles") || false;
 
   window.particlesInit = async function (engine: Engine) {
-    if (particles) await loadSlim(engine);
+    if (particlesOn) await loadSlim(engine);
   };
 </script>
 
