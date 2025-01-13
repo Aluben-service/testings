@@ -12,7 +12,7 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import compressor from "astro-compressor";
 import compress from "astro-compress";
 import playformCompress from "@playform/compress";
-
+import netlify from "@astrojs/netlify";
 
 
 import react from "@astrojs/react";
@@ -93,8 +93,8 @@ export default defineConfig({
 		tailwind({ applyBaseStyles: false }),
 	],
 	output: "server",
-	adapter: node({
-		mode: "middleware",
-	}),
+	adapter: netlify({
+    mode: 'node-middleware'
+  }),
 	prefetch: true,
 });
